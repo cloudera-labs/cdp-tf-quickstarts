@@ -33,7 +33,7 @@ pip install git+https://github.com/cloudera-labs/cdpy@main#egg=cdpy
 ```bash
 ansible-galaxy collection install community.general:==5.5.0
 
-ansible-galaxy collection install git+https://github.com/cloudera-labs/cloudera.cloud.git
+ansible-galaxy collection install git+https://github.com/cloudera-labs/cloudera.cloud.git,devel
 ```
 
 * Configure cdp with CDP access key ID and private key if not already done.
@@ -45,12 +45,15 @@ cdp configure
 
 * To create resources in the Cloud Provider, access credentials or service account are needed for authentication.
   * For **AWS** access keys are required to be able to create the Cloud resources via the Terraform aws provider. See the [AWS documentation for Managing access keys for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html).
+  * For **Azure**, authentication with the Azure subscription is required. There are a number of ways to do this outlined in the [Azure Terraform Provider Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure).
 
 ## Configuration
 
-The `terraform.tfvars` file in the required cloud provider directory contains the user-facing configuration. Edit this file to match your particular deployment.
+The `terraform.tfvars.template` file in the required cloud provider directory contains the user-facing configuration. Edit this file to match your particular deployment.
 
 Sample contents with indicators of values to change are shown below.
+
+### Sample Configuration file for AWS
 
 ```yaml
 # ------- Global settings -------
@@ -59,6 +62,28 @@ env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources,
 # ------- Cloud Settings -------
 aws_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eu-west-1
 aws_key_pair = "<ENTER_VALUE>" # Change this with the name of a pre-existing AWS keypair, e.g. my-keypair
+
+# ------- CDP Environment Deployment -------
+deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
+
+# ------- Network Settings -------
+# **NOTE: If required change the values below any additional CIDRs to add the the AWS Security Groups**
+ingress_extra_cidrs_and_ports = {
+ cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
+ ports = [443, 22]
+}
+```
+
+### Sample Configuration file for Azure
+
+```yaml
+# ------- Global settings -------
+env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources, e.g. cldr1
+
+# ------- Cloud Settings -------
+azure_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. westeurpoe
+
+public_key_text = "<ENTER_VALUE> # Change this with the SSH public key text, e.g. ssh-rsa AAA....
 
 # ------- CDP Environment Deployment -------
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
