@@ -24,8 +24,9 @@ provider "azurerm" {
 provider "azuread" {
 }
 
-module "cdp_azure_quickstart" {
-  source = "git::https://github.com/jimright/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=feature/azure_pre_reqs_module"
+module "cdp_azure_prereqs" {
+  # source = "../../terraform-cdp-modules/modules/terraform-cdp-azure-pre-reqs"
+  source = "git::https://github.com/jimright/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=feature/azure_pre_reqs_and_cdp_modules"
   # source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs"
 
   env_prefix   = var.env_prefix
@@ -37,4 +38,44 @@ module "cdp_azure_quickstart" {
 
   ingress_extra_cidrs_and_ports = var.ingress_extra_cidrs_and_ports
 
+}
+
+module "cdp_deploy" {
+  # source = "../../terraform-cdp-modules/modules/terraform-cdp-deploy"
+  source = "git::https://github.com/jimright/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=feature/azure_pre_reqs_and_cdp_modules"
+  # source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref="
+
+  env_prefix          = var.env_prefix
+  infra_type          = "azure"
+  region              = var.azure_region
+  public_key_text     = var.public_key_text
+  deployment_template = var.deployment_template
+
+  # From pre-reqs module output
+  azure_subscription_id = module.cdp_azure_prereqs.azure_subscription_id
+  azure_tenant_id       = module.cdp_azure_prereqs.azure_tenant_id
+
+  azure_resource_group_name = module.cdp_azure_prereqs.azure_resource_group_name
+  azure_vnet_name           = module.cdp_azure_prereqs.azure_vnet_name
+  azure_subnet_names        = module.cdp_azure_prereqs.azure_subnet_names
+
+  azure_security_group_default_uri = module.cdp_azure_prereqs.azure_security_group_default_uri
+  azure_security_group_knox_uri    = module.cdp_azure_prereqs.azure_security_group_knox_uri
+
+  data_storage_location   = module.cdp_azure_prereqs.azure_data_storage_location
+  log_storage_location    = module.cdp_azure_prereqs.azure_log_storage_location
+  backup_storage_location = module.cdp_azure_prereqs.azure_backup_storage_location
+
+  azure_xaccount_app_uuid  = module.cdp_azure_prereqs.azure_xaccount_app_uuid
+  azure_xaccount_app_pword = module.cdp_azure_prereqs.azure_xaccount_app_pword
+
+  azure_idbroker_identity_id      = module.cdp_azure_prereqs.azure_idbroker_identity_id
+  azure_datalakeadmin_identity_id = module.cdp_azure_prereqs.azure_datalakeadmin_identity_id
+  azure_ranger_audit_identity_id  = module.cdp_azure_prereqs.azure_ranger_audit_identity_id
+  azure_log_identity_id           = module.cdp_azure_prereqs.azure_log_identity_id
+  azure_raz_identity_id           = module.cdp_azure_prereqs.azure_raz_identity_id
+
+  depends_on = [
+    module.cdp_azure_prereqs
+  ]
 }
