@@ -18,7 +18,7 @@ provider "aws" {
 }
 
 module "cdp_aws_quickstart" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.0.2"
 
   env_prefix = var.env_prefix
   aws_region = var.aws_region
