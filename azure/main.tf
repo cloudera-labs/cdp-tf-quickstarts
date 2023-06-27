@@ -25,14 +25,10 @@ provider "azuread" {
 }
 
 module "cdp_azure_prereqs" {
-  # source = "../../terraform-cdp-modules/modules/terraform-cdp-azure-pre-reqs"
-  source = "git::https://github.com/jimright/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=feature/azure_pre_reqs_and_cdp_modules"
-  # source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.1.0"
 
   env_prefix   = var.env_prefix
   azure_region = var.azure_region
-
-  public_key_text = var.public_key_text
 
   deployment_template = var.deployment_template
 
@@ -41,9 +37,7 @@ module "cdp_azure_prereqs" {
 }
 
 module "cdp_deploy" {
-  # source = "../../terraform-cdp-modules/modules/terraform-cdp-deploy"
-  source = "git::https://github.com/jimright/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=feature/azure_pre_reqs_and_cdp_modules"
-  # source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref="
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.1.0"
 
   env_prefix          = var.env_prefix
   infra_type          = "azure"
@@ -55,9 +49,10 @@ module "cdp_deploy" {
   azure_subscription_id = module.cdp_azure_prereqs.azure_subscription_id
   azure_tenant_id       = module.cdp_azure_prereqs.azure_tenant_id
 
-  azure_resource_group_name = module.cdp_azure_prereqs.azure_resource_group_name
-  azure_vnet_name           = module.cdp_azure_prereqs.azure_vnet_name
-  azure_subnet_names        = module.cdp_azure_prereqs.azure_subnet_names
+  azure_resource_group_name      = module.cdp_azure_prereqs.azure_resource_group_name
+  azure_vnet_name                = module.cdp_azure_prereqs.azure_vnet_name
+  azure_cdp_subnet_names         = module.cdp_azure_prereqs.azure_cdp_subnet_names
+  azure_cdp_gateway_subnet_names = module.cdp_azure_prereqs.azure_cdp_gateway_subnet_names
 
   azure_security_group_default_uri = module.cdp_azure_prereqs.azure_security_group_default_uri
   azure_security_group_knox_uri    = module.cdp_azure_prereqs.azure_security_group_knox_uri
