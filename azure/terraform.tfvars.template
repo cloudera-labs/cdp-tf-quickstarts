@@ -18,7 +18,7 @@ env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources,
 # ------- Cloud Settings -------
 azure_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. westeurpoe
 
-public_key_text = "<ENTER_VALUE> # Change this with the SSH public key text, e.g. ssh-rsa AAA....
+public_key_text = "<ENTER_VALUE>" # Change this with the SSH public key text, e.g. ssh-rsa AAA....
 
 # ------- CDP Environment Deployment -------
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
