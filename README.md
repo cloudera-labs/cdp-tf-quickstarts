@@ -4,56 +4,33 @@ This repository contains Terraform resource files to quickly deploy Cloudera Dat
 
 A summary requirements, configuration and execution steps to use this repository is given below.
 
-## Requirements
+## Prerequisites
 
-In addition to Terraform there are a number of additional requirements to discover the cross account Ids and to run the CDP environment deployment. A summary of the install steps for these requirements is given below.
+To use the module provided here, you will need the following prerequisites:
 
-> **_NOTE:_** We recommend these steps be performed within a Python virtual environment.
+* An AWS or Azure Cloud account;
+* A CDP Public Cloud account (you can sign up for a  [60-day free pilot](https://www.cloudera.com/campaign/try-cdp-public-cloud.html) );
+* A recent version of Terraform software (version 0.13 or higher).
 
-* Terraform can be installed by following the instructions at https://developer.hashicorp.com/terraform/downloads
+## Deployment steps
 
-* Install jq as per instructions at https://stedolan.github.io/jq/download/. An example for MacOS using homebrew is shown below
-
-```bash
-brew install jq
-```
-
-* Install the Python dependency packages. This includes:
-  * the Ansible core and jmespath Python packages
-  * cdpy, a Pythonic wrapper for Cloudera CDP CLI. Note that this in turn installs the CDP CLI.
-
-```bash
-pip install ansible-core==2.12.10 jmespath==1.0.1 
-
-pip install git+https://github.com/cloudera-labs/cdpy@main#egg=cdpy
-```
-
-* Install the community.general and cloudera.cloud Ansible collections
-
-```bash
-ansible-galaxy collection install community.general:==5.5.0
-
-ansible-galaxy collection install git+https://github.com/cloudera-labs/cloudera.cloud.git,devel
-```
-
-* Configure cdp with CDP access key ID and private key if not already done.
-  * See the [CDP documentation for steps to Generate the API access key](https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cli-generating-an-api-access-key.html) required in the `cdp configure` command above.
-
-```bash
-cdp configure
-```
+### Configure local prerequisites
 
 * To create resources in the Cloud Provider, access credentials or service account are needed for authentication.
   * For **AWS** access keys are required to be able to create the Cloud resources via the Terraform aws provider. See the [AWS documentation for Managing access keys for IAM users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html).
   * For **Azure**, authentication with the Azure subscription is required. There are a number of ways to do this outlined in the [Azure Terraform Provider Documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure).
 
-## Configuration
+* If you have not yet configured your `~/.cdp/credentials file`, follow the steps for [Generating an API access key](https://docs.cloudera.com/cdp-public-cloud/cloud/cli/topics/mc-cli-generating-an-api-access-key.html).
+
+* Terraform can be installed by following the instructions at https://developer.hashicorp.com/terraform/downloads
+
+### Input file configuration
 
 The `terraform.tfvars.template` file in the required cloud provider directory contains the user-facing configuration. Edit this file to match your particular deployment.
 
 Sample contents with indicators of values to change are shown below.
 
-### Sample Configuration file for AWS
+#### Sample Configuration file for AWS
 
 ```yaml
 # ------- Global settings -------
@@ -74,7 +51,7 @@ ingress_extra_cidrs_and_ports = {
 }
 ```
 
-### Sample Configuration file for Azure
+#### Sample Configuration file for Azure
 
 ```yaml
 # ------- Global settings -------
@@ -96,7 +73,7 @@ ingress_extra_cidrs_and_ports = {
 }
 ```
 
-## Execution
+### Create infrastructure
 
 1. Clone this repository using the following commands:
 
@@ -107,7 +84,7 @@ git clone https://github.com/cloudera-labs/cdp-tf-quickstarts.git
 cd cdp-tf-quickstarts
 ```
 
-2. In the cloned repo, change to required cloud provider directory and edit the variables in `terraform.tfvars` file as discussed in the section above.
+2. In the cloned repo, change to required cloud provider directory and create a `terraform.tfvars` file with variable definitions to run the module. Reference the `terraform.tfvars.template` in each cloud provider directory and the example contents discussed in the section above.
 
 ```bash
 # Change into cloud provider directory, e.g. for aws
@@ -123,7 +100,7 @@ terraform init
 terraform apply
 ```
 
-Once the deployment completes, you can create CDP Data Hubs and Data Services from the CDP Management Console (https://cdp.cloudera.com/).
+Once the creation of the CDP environment and data lake starts, you can follow the deployment process on the CDP Management Console from your browser in ( [https://cdp.cloudera.com/](https://cdp.cloudera.com/) ). After it completes, you can add CDP  [Data Hubs and Data Services](https://docs.cloudera.com/cdp-public-cloud/cloud/overview/topics/cdp-services.html) to your newly deployed environment from the Management Console UI or using the CLI.
 
 ### Clean up the CDP environment and infrastructure
 

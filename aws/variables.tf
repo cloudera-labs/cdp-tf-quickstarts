@@ -45,13 +45,6 @@ variable "deployment_template" {
   description = "Deployment Pattern to use for Cloud resources and CDP"
 }
 
-variable "cdp_profile" {
-  type        = string
-  description = "Profile for CDP credentials"
-
-  # Profile is default unless explicitly specified
-  default = "default"
-}
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
   type = object({
