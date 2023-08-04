@@ -29,3 +29,13 @@ ingress_extra_cidrs_and_ports = {
  cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
  ports = [443, 22]
 }
+
+# ------- Optional inputs for BYO-VNet -------
+# **NOTE: Uncomment below settings if required
+
+# create_vnet=true # Set to false to use pre-existing VNet
+
+# cdp_resourcegroup_name="<ENTER_EXISTING_RG_NAME>" # Name of pre-existing Resource Group for CDP environment. Required if create_vnet is false
+# cdp_vnet_name="<ENTER_EXISTING_VNET_NAME>" # Name of pre-existing VNet for CDP environment. Required if create_vnet is false
+# cdp_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>","<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP resources. Required if create_vnet is false
+# cdp_gw_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP Gateway. Required if create_vnet is false

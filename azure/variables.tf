@@ -44,3 +44,40 @@ variable "ingress_extra_cidrs_and_ports" {
   })
   description = "List of extra CIDR blocks and ports to include in Security Group Ingress rules"
 }
+
+# ------- Optional inputs for BYO-VNet -------
+variable "create_vnet" {
+  type = bool
+
+  description = "Flag to specify if the VNet should be created"
+
+  default = true
+}
+
+variable "cdp_resourcegroup_name" {
+  type        = string
+  description = "Pre-existing Resource Group for CDP environment. Required if create_vnet is false."
+
+  default = null
+}
+
+variable "cdp_vnet_name" {
+  type        = string
+  description = "Pre-existing VNet Name for CDP environment. Required if create_vnet is false."
+
+  default = null
+}
+
+variable "cdp_subnet_names" {
+  type        = list(any)
+  description = "List of subnet names for CDP Resources. Required if create_vnet is false."
+
+  default = null
+}
+
+variable "cdp_gw_subnet_names" {
+  type        = list(any)
+  description = "List of subnet names for CDP Gateway. Required if create_vnet is false."
+
+  default = null
+}

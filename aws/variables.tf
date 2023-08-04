@@ -53,3 +53,33 @@ variable "ingress_extra_cidrs_and_ports" {
   })
   description = "List of extra CIDR blocks and ports to include in Security Group Ingress rules"
 }
+
+# ------- Optional inputs for BYO-VPC -------
+variable "create_vpc" {
+  type = bool
+
+  description = "Flag to specify if the VPC should be created"
+
+  default = true
+}
+
+variable "cdp_vpc_id" {
+  type        = string
+  description = "VPC ID for CDP environment. Required if create_vpc is false."
+
+  default = null
+}
+
+variable "cdp_public_subnet_ids" {
+  type        = list(any)
+  description = "List of public subnet ids. Required if create_vpc is false."
+
+  default = null
+}
+
+variable "cdp_private_subnet_ids" {
+  type        = list(any)
+  description = "List of private subnet ids. Required if create_vpc is false."
+
+  default = null
+}

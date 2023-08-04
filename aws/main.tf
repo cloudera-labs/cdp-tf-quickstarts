@@ -30,6 +30,12 @@ module "cdp_aws_prereqs" {
   xaccount_account_id  = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.account_id
   xaccount_external_id = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.external_id
 
+  # Inputs for BYO-VPC
+  create_vpc             = var.create_vpc
+  cdp_vpc_id             = var.cdp_vpc_id
+  cdp_public_subnet_ids  = var.cdp_public_subnet_ids
+  cdp_private_subnet_ids = var.cdp_private_subnet_ids
+
 }
 
 module "cdp_deploy" {
@@ -70,7 +76,7 @@ terraform {
   required_providers {
     cdp = {
       source  = "cloudera/cdp"
-      version = "0.1.4-pre"
+      version = "0.1.3-pre"
     }
   }
 }
