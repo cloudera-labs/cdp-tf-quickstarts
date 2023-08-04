@@ -36,6 +36,9 @@ module "cdp_aws_prereqs" {
   cdp_public_subnet_ids  = var.cdp_public_subnet_ids
   cdp_private_subnet_ids = var.cdp_private_subnet_ids
 
+  # Inputs for Control Plane Connectivity in fully private 
+  private_network_extensions=var.private_network_extensions
+
 }
 
 module "cdp_deploy" {

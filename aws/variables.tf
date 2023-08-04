@@ -83,3 +83,12 @@ variable "cdp_private_subnet_ids" {
 
   default = null
 }
+
+# ------- Optional inputs for Control Plane Connectivity in fully private environment -------
+variable "private_network_extensions" {
+  type = bool
+
+  description = "Enable creation of resources for connectivity to CDP Control Plane (public subnet and NAT Gateway) for Private Deployment. Only relevant for private deployment template"
+
+  default = true
+}

@@ -16,7 +16,7 @@
 env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources, e.g. cldr1
 
 # ------- Cloud Settings -------
-azure_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. westeurpoe
+azure_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eastus
 
 public_key_text = "<ENTER_VALUE>" # Change this with the SSH public key text, e.g. ssh-rsa AAA....
 
