@@ -45,13 +45,6 @@ variable "deployment_template" {
   description = "Deployment Pattern to use for Cloud resources and CDP"
 }
 
-variable "cdp_profile" {
-  type        = string
-  description = "Profile for CDP credentials"
-
-  # Profile is default unless explicitly specified
-  default = "default"
-}
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
   type = object({
@@ -59,4 +52,43 @@ variable "ingress_extra_cidrs_and_ports" {
     ports = list(number)
   })
   description = "List of extra CIDR blocks and ports to include in Security Group Ingress rules"
+}
+
+# ------- Optional inputs for BYO-VPC -------
+variable "create_vpc" {
+  type = bool
+
+  description = "Flag to specify if the VPC should be created"
+
+  default = true
+}
+
+variable "cdp_vpc_id" {
+  type        = string
+  description = "VPC ID for CDP environment. Required if create_vpc is false."
+
+  default = null
+}
+
+variable "cdp_public_subnet_ids" {
+  type        = list(any)
+  description = "List of public subnet ids. Required if create_vpc is false."
+
+  default = null
+}
+
+variable "cdp_private_subnet_ids" {
+  type        = list(any)
+  description = "List of private subnet ids. Required if create_vpc is false."
+
+  default = null
+}
+
+# ------- Optional inputs for Control Plane Connectivity in fully private environment -------
+variable "private_network_extensions" {
+  type = bool
+
+  description = "Enable creation of resources for connectivity to CDP Control Plane (public subnet and NAT Gateway) for Private Deployment. Only relevant for private deployment template"
+
+  default = true
 }
