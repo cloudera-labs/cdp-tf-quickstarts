@@ -84,6 +84,12 @@ variable "cdp_private_subnet_ids" {
   default = null
 }
 
+variable "cdp_lb_subnet_ids" {
+   type        = list(any)
+  description = "List of subnet ids for Load Balancer. Required if we want to target subnets for LB"
+
+  default = null
+}
 # ------- Optional inputs for Control Plane Connectivity in fully private environment -------
 variable "private_network_extensions" {
   type = bool

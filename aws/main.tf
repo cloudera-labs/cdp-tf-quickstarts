@@ -43,13 +43,13 @@ module "cdp_aws_prereqs" {
 
 module "cdp_deploy" {
   source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.2.0"
-
   env_prefix          = var.env_prefix
   infra_type          = "aws"
   region              = var.aws_region
   keypair_name        = var.aws_key_pair
   deployment_template = var.deployment_template
 
+  cdp_lb_subnet_ids = var.cdp_lb_subnet_ids
   # From pre-reqs module output
   aws_vpc_id             = module.cdp_aws_prereqs.aws_vpc_id
   aws_public_subnet_ids  = module.cdp_aws_prereqs.aws_public_subnet_ids
