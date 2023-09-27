@@ -90,7 +90,11 @@ cd cdp-tf-quickstarts
 # Change into cloud provider directory, e.g. for aws
 cd aws
 
-# Edit the terraform.tfvars file as needed.
+#Copy terraform.tfvars.template into terraform.tfvars
+cp terraform.tfvars.template terraform.tfvars
+
+# Edit the terraform.tfvars file as needed, e.g. using vi
+vi terraform.tfvars
 ```
 
 3. To create Cloud resources and CDP environment, in the cloud provider directory, run the Terraform commands to initialize and apply the changes:
