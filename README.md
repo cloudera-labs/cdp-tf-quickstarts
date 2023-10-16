@@ -24,6 +24,18 @@ To use the module provided here, you will need the following prerequisites:
 
 * Terraform can be installed by following the instructions at https://developer.hashicorp.com/terraform/downloads
 
+#### Notes on Azure authentication
+
+* Where you have more than one Azure Subscription the id to use can be passed via the the `ARM_SUBSCRIPTION_ID` environment variable.
+
+* When using a Service Principal (SP) to authenticate with Azure, it is not possible to authenticate with azuread Terraform Provider (the provider used to create the Azure Cross Account AD Application) with the command az login --service-principal. We found the the best way to authenticate using an SP is by setting environment variables. Details of required environment variables are in the [azuread docs](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/guides/service_principal_client_secret#environment-variables) and [azurerm docs](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform) and summarized below.
+```bash
+export ARM_CLIENT_ID="<sp_client_id>"
+export ARM_CLIENT_SECRET="<sp_client_secret>"
+export ARM_TENANT_ID="<sp_tenant_id>"
+export ARM_SUBSCRIPTION_ID="<sp_subscription_id>" 
+```
+
 ### Input file configuration
 
 The `terraform.tfvars.template` file in the required cloud provider directory contains the user-facing configuration. Edit this file to match your particular deployment.
