@@ -13,7 +13,7 @@
 # limitations under the License.
 
 provider "aws" {
-  region  = var.aws_region
+  region = var.aws_region
 }
 
 module "cdp_aws_prereqs" {

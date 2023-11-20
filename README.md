@@ -46,6 +46,16 @@ export ARM_TENANT_ID="<sp_tenant_id>"
 export ARM_SUBSCRIPTION_ID="<sp_subscription_id>" 
 ```
 
+* The Azure API permissions listed are required by the provisioning account to create the Azure pre-requisite resources.
+
+| API Permission    | Purpose |
+| ------------------| ------- |
+| Microsoft Graph - Application.ReadWrite.All   | Read and write all applications |
+| Microsoft Graph - Application.ReadWrite.OwnedBy | Manage apps that this app creates or owns |
+| Microsoft Graph - AppRoleAssignment.ReadWrite.All | Manage app permission grants and app role assignments |
+| Microsoft Graph - Directory.ReadWrite.All | Read and write directory data |
+| Microsoft Graph - User.Read | Sign in and read user profile |
+
 ### Input file configuration
 
 The `terraform.tfvars.template` file in the required cloud provider directory contains the user-facing configuration. Edit this file to match your particular deployment.
