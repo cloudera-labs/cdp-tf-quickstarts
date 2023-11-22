@@ -24,6 +24,16 @@ To use the module provided here, you will need the following prerequisites:
 
 * Terraform can be installed by following the instructions at https://developer.hashicorp.com/terraform/downloads
 
+#### Notes on AWS authentication
+
+* Details of the different methods to authenticate with AWS are available in the [aws Terraform provider docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration).
+
+* The most common ways to specify AWS access and secret keys are:
+  * via environment variables (i.e. setting the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`) or;
+  * via shared configuration/credential files (e.g. the `$HOME/.aws/credentials` file). The `AWS_PROFILE` environment variable can be set to specify a named AWS profile. 
+
+* Note that the AWS region to use should always be specifed as a Terraform input variable (with the `aws_region` variable). This region variable is also used an input to the CDP deploy module used to identify the Cloud Provider region.
+
 #### Notes on Azure authentication
 
 * Where you have more than one Azure Subscription the id to use can be passed via the the `ARM_SUBSCRIPTION_ID` environment variable.
@@ -35,6 +45,16 @@ export ARM_CLIENT_SECRET="<sp_client_secret>"
 export ARM_TENANT_ID="<sp_tenant_id>"
 export ARM_SUBSCRIPTION_ID="<sp_subscription_id>" 
 ```
+
+* The Azure API permissions listed are required by the provisioning account to create the Azure pre-requisite resources.
+
+| API Permission    | Purpose |
+| ------------------| ------- |
+| Microsoft Graph - Application.ReadWrite.All   | Read and write all applications |
+| Microsoft Graph - Application.ReadWrite.OwnedBy | Manage apps that this app creates or owns |
+| Microsoft Graph - AppRoleAssignment.ReadWrite.All | Manage app permission grants and app role assignments |
+| Microsoft Graph - Directory.ReadWrite.All | Read and write directory data |
+| Microsoft Graph - User.Read | Sign in and read user profile |
 
 ### Input file configuration
 
