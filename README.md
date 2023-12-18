@@ -1,6 +1,6 @@
 # CDP quickstart using the Terraform Module for CDP Prerequisites
 
-This repository contains Terraform resource files to quickly deploy Cloudera Data Platform (CDP) Public Cloud and associated pre-requisite Cloud Service Provider (CSP) resources. It uses the CDP Terraform Modules to do this.
+This repository contains Terraform resource files to quickly deploy Cloudera Data Platform (CDP) Public Cloud and associated pre-requisite Cloud Service Provider (CSP) resources. It uses the [CDP Terraform Modules](https://github.com/cloudera-labs/terraform-cdp-modules) to do this.
 
 A summary requirements, configuration and execution steps to use this repository is given below.
 
