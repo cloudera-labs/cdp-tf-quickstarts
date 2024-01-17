@@ -93,14 +93,14 @@ locals {
   # key pair value
   aws_key_pair = (
     local.create_keypair == false ?
-    var.aws_key_pair : 
+    var.aws_key_pair :
     aws_key_pair.cdp_keypair[0].key_name
   )
 }
 
 # Create and save a RSA key
 resource "tls_private_key" "cdp_private_key" {
-  count = local.create_keypair ? 1 : 0
+  count     = local.create_keypair ? 1 : 0
   algorithm = "RSA"
   rsa_bits  = 4096
 }
@@ -129,19 +129,19 @@ locals {
   lookup_ip = var.ingress_extra_cidrs_and_ports == null ? true : false
 
   # ingress value
-  ingress_extra_cidrs_and_ports = ( 
-    local.lookup_ip == false ? 
-      var.ingress_extra_cidrs_and_ports : 
-      { cidrs = ["${data.http.my_ip[0].response_body}/32"], 
-        ports = [443, 22]
-      }
-    )
+  ingress_extra_cidrs_and_ports = (
+    local.lookup_ip == false ?
+    var.ingress_extra_cidrs_and_ports :
+    { cidrs = ["${data.http.my_ip[0].response_body}/32"],
+      ports = [443, 22]
+    }
+  )
 }
 
 # Perform lookup of public IP of executing host
 data "http" "my_ip" {
   count = local.lookup_ip ? 1 : 0
-  
+
   url = "https://ifconfig.me/ip"
 }
 
