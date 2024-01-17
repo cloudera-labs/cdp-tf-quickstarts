@@ -1,0 +1,40 @@
+# Copyright 2023 Cloudera, Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# ------- Global settings -------
+env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources, e.g. cldr1
+
+# ------- Cloud Settings -------
+gcp_project = "<ENTER_VALUE>" # Change this to specify the GCP Project ID
+
+gcp_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. europe-west2
+
+public_key_text = "<ENTER_VALUE>" # Change this with the SSH public key text, e.g. ssh-rsa AAA....
+
+# ------- CDP Environment Deployment -------
+deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
+
+# ------- Network Settings -------
+# **NOTE: If required change the values below any additional CIDRs to add the the AWS Security Groups**
+ingress_extra_cidrs_and_ports = {
+ cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
+ ports = [443, 22]
+}
+
+# ------- Optional inputs for BYO-VPC -------
+# **NOTE: Uncomment below settings if required
+
+# create_vpc=true # Set to false to use pre-existing VPC
+# cdp_vpc_name="<ENTER_EXISTING_VPC_NAME>" # Name of pre-existing VNet for CDP environment. Required if create_vpc is false
+# cdp_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>","<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP resources. Required if create_vpc is false
