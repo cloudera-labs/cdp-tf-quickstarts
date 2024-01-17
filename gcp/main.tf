@@ -26,7 +26,7 @@ module "cdp_gcp_prereqs" {
 
   deployment_template = var.deployment_template
 
-  ingress_extra_cidrs_and_ports = var.ingress_extra_cidrs_and_ports
+  ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
 
   # Inputs for BYO-VPC
   create_vpc       = var.create_vpc
@@ -42,7 +42,7 @@ module "cdp_deploy" {
   infra_type          = "gcp"
   gcp_project_id      = var.gcp_project
   region              = var.gcp_region
-  public_key_text     = var.public_key_text
+  public_key_text     = local.public_key_text
   deployment_template = var.deployment_template
 
   # From pre-reqs module output
@@ -66,4 +66,56 @@ module "cdp_deploy" {
   depends_on = [
     module.cdp_gcp_prereqs
   ]
+}
+
+# ------- Create SSH Keypair if input public_key_text variable is not specified
+locals {
+  # flag to determine if keypair should be created
+  create_keypair = var.public_key_text == null ? true : false
+
+  # key pair value
+  public_key_text = (
+    local.create_keypair == false ?
+    var.public_key_text : 
+    tls_private_key.cdp_private_key[0].public_key_openssh
+  )
+}
+
+# Create and save a RSA key
+resource "tls_private_key" "cdp_private_key" {
+  count = local.create_keypair ? 1 : 0
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+# Save the private key to ./<env_prefix>-ssh-key.pem
+resource "local_sensitive_file" "pem_file" {
+  count = local.create_keypair ? 1 : 0
+
+  filename             = "${var.env_prefix}-ssh-key.pem"
+  file_permission      = "600"
+  directory_permission = "700"
+  content              = tls_private_key.cdp_private_key[0].private_key_pem
+}
+
+# ------- Lookup public ip for ingress settings if ingress_extra_cidrs_and_ports variable is not specified
+locals {
+  # flag to determine if public ip lookup should be performed for ingress
+  lookup_ip = var.ingress_extra_cidrs_and_ports == null ? true : false
+
+  # ingress value
+  ingress_extra_cidrs_and_ports = ( 
+    local.lookup_ip == false ? 
+      var.ingress_extra_cidrs_and_ports : 
+      { cidrs = ["${data.http.my_ip[0].response_body}/32"], 
+        ports = [443, 22]
+      }
+    )
+}
+
+# Perform lookup of public IP of executing host
+data "http" "my_ip" {
+  count = local.lookup_ip ? 1 : 0
+  
+  url = "https://ifconfig.me/ip"
 }

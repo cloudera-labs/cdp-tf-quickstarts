@@ -32,6 +32,8 @@ variable "public_key_text" {
   type = string
 
   description = "SSH Public key string for the nodes of the CDP environment"
+
+  default = null
 }
 
 # ------- CDP Environment Deployment -------
@@ -48,6 +50,8 @@ variable "ingress_extra_cidrs_and_ports" {
     ports = list(number)
   })
   description = "List of extra CIDR blocks and ports to include in Security Group Ingress rules"
+
+  default = null
 }
 
 # ------- Optional inputs for BYO-VPC -------
