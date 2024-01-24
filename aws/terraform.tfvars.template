@@ -17,17 +17,22 @@ env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources,
 
 # ------- Cloud Settings -------
 aws_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eu-west-1
-aws_key_pair = "<ENTER_VALUE>" # Change this with the name of a pre-existing AWS keypair, e.g. my-keypair
 
 # ------- CDP Environment Deployment -------
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
 
-# ------- Network Settings -------
-# **NOTE: If required change the values below any additional CIDRs to add the the AWS Security Groups**
-ingress_extra_cidrs_and_ports = {
- cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
- ports = [443, 22]
-}
+
+
+# ------- Optional inputs for SSH key and Network Access Settings -------
+# **NOTE: Uncomment below settings if required
+
+# aws_key_pair = "<ENTER_VALUE>" # Set this to specify the name of a pre-existing AWS keypair, e.g. my-keypair
+
+# If required use the variable below for any additional CIDRs to add the the AWS Security Groups
+# ingress_extra_cidrs_and_ports = {
+# cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
+# ports = [443, 22]
+# }
 
 # ------- Optional inputs for BYO-VPC -------
 # **NOTE: Uncomment below settings if required

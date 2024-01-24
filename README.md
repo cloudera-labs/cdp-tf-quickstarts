@@ -94,17 +94,10 @@ env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources,
 
 # ------- Cloud Settings -------
 aws_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eu-west-1
-aws_key_pair = "<ENTER_VALUE>" # Change this with the name of a pre-existing AWS keypair, e.g. my-keypair
 
 # ------- CDP Environment Deployment -------
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
 
-# ------- Network Settings -------
-# **NOTE: If required change the values below any additional CIDRs to add the the AWS Security Groups**
-ingress_extra_cidrs_and_ports = {
- cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
- ports = [443, 22]
-}
 ```
 
 #### Sample Configuration file for Azure
@@ -114,19 +107,10 @@ ingress_extra_cidrs_and_ports = {
 env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources, e.g. cldr1
 
 # ------- Cloud Settings -------
-azure_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. westeurpoe
-
-public_key_text = "<ENTER_VALUE>" # Change this with the SSH public key text, e.g. ssh-rsa AAA....
+azure_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eastus
 
 # ------- CDP Environment Deployment -------
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
-
-# ------- Network Settings -------
-# **NOTE: If required change the values below any additional CIDRs to add the the AWS Security Groups**
-ingress_extra_cidrs_and_ports = {
- cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
- ports = [443, 22]
-}
 ```
 
 #### Sample Configuration file for GCP
@@ -140,18 +124,21 @@ gcp_project = "<ENTER_VALUE>" # Change this to specify the GCP Project ID
 
 gcp_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. europe-west2
 
-public_key_text = "<ENTER_VALUE>" # Change this with the SSH public key text, e.g. ssh-rsa AAA....
-
 # ------- CDP Environment Deployment -------
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
-
-# ------- Network Settings -------
-# **NOTE: If required change the values below any additional CIDRs to add the the AWS Security Groups**
-ingress_extra_cidrs_and_ports = {
- cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
- ports = [443, 22]
-}
 ```
+
+#### SSH keys
+
+By default the Terraform quickstarts will create a new SSH keypair that will be associated with all nodes provisioned by CDP. The private key will be stored in the `<env_prefix>-ssh-key.pem` file of the Terraform cloud provider project directory.
+
+To use an existing SSH key, set the keypair name (for AWS) or public key text (for Azure and GCP) variable in the `terraform.tvars` file.
+
+#### Access to UI and API endpoints
+
+By default inbound access to the UI and API endpoints of your deployment will be allowed from the public IP of executing host. 
+
+To add additional CIDRs or IP ranges, set the optional `ingress_extra_cidrs_and_ports` variable in the `terraform.tvars` file.
 
 ### Create infrastructure
 
