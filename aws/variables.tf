@@ -28,6 +28,7 @@ variable "aws_key_pair" {
 
   description = "Name of the Public SSH key for the CDP environment"
 
+  default = null
 }
 
 # ------- CDP Environment Deployment -------
@@ -44,6 +45,8 @@ variable "ingress_extra_cidrs_and_ports" {
     ports = list(number)
   })
   description = "List of extra CIDR blocks and ports to include in Security Group Ingress rules"
+
+  default = null
 }
 
 # ------- Optional inputs for BYO-VPC -------
