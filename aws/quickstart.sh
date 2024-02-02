@@ -14,11 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export TF_VAR_aws_region=${1:-""}
-export TF_VAR_env_prefix=${2:-""}
-export TF_VAR_aws_key_pair=${3:-""}
-export TF_VAR_deployment_template=${4:-""}
-export TF_VAR_ingress_extra_cidrs_and_ports=${5:-""}
+export TF_VAR_aws_region="${1:-""}"
+export TF_VAR_env_prefix="${2:-""}"
+export TF_VAR_deployment_template="${3:-"semi-private"}"
 
 # Install Terraform
 curl -fsSL https://releases.hashicorp.com/terraform/1.7.1/terraform_1.7.1_linux_amd64.zip -o terraform.zip
@@ -27,7 +25,7 @@ sudo mv terraform /usr/local/bin/
 rm terraform.zip
 
 # Checkout CDP Quickstart Repository
-git clone --branch v0.4.0 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
+git clone --branch v0.5.0 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
 cd cdp-tf-quickstarts/aws
 
 # Install CDP CLI and Log In
