@@ -125,14 +125,14 @@ resource "aws_key_pair" "cdp_keypair" {
 
 # ------- Lookup public ip for ingress settings if ingress_extra_cidrs_and_ports variable is not specified
 locals {
-  # flag to determine if public ip lookup should be performed for ingress
+  # flag to determine if public ip of host should be used for ingress
   lookup_ip = var.ingress_extra_cidrs_and_ports == null ? true : false
 
   # ingress value
   ingress_extra_cidrs_and_ports = (
     local.lookup_ip == false ?
     var.ingress_extra_cidrs_and_ports :
-    { cidrs = ["${data.http.my_ip[0].response_body}/32"],
+    { cidrs = ["${chomp(data.http.my_ip[0].response_body)}/32"],
       ports = [443, 22]
     }
   )
@@ -142,6 +142,5 @@ locals {
 data "http" "my_ip" {
   count = local.lookup_ip ? 1 : 0
 
-  url = "https://ifconfig.me/ip"
+  url = "https://ipv4.icanhazip.com"
 }
-
