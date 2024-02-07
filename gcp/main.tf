@@ -102,13 +102,12 @@ resource "local_sensitive_file" "pem_file" {
 locals {
   # flag to determine if public ip of host should be used for ingress
   lookup_ip = var.ingress_extra_cidrs_and_ports == null ? true : false
-  host_public_ip = "${chomp(data.http.my_ip[0].response_body)}/32"
 
   # ingress value
   ingress_extra_cidrs_and_ports = (
     local.lookup_ip == false ?
     var.ingress_extra_cidrs_and_ports :
-    { cidrs = [local.host_public_ip],
+    { cidrs = ["${chomp(data.http.my_ip[0].response_body)}/32"],
       ports = [443, 22]
     }
   )
