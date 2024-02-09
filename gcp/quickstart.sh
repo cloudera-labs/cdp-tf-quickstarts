@@ -14,15 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export TF_VAR_gcp_project=${1:-""}
-export TF_VAR_gcp_region=${2:-""}
-export TF_VAR_env_prefix=${3:-""}
-export TF_VAR_public_key_text=${4:-""}
-export TF_VAR_deployment_template=${5:-""}
-export TF_VAR_ingress_extra_cidrs_and_ports=${6:-""}
+export TF_VAR_gcp_project="${1:-""}"
+export TF_VAR_gcp_region="${2:-""}"
+export TF_VAR_env_prefix="${3:-""}"
+export TF_VAR_deployment_template="${4:-"semi-private"}"
 
 # Checkout CDP Quickstart Repository
-git clone --branch v0.4.0 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
+git clone --branch v0.5.0 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
 cd cdp-tf-quickstarts/gcp
 
 # Install CDP CLI and Log In
