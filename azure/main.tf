@@ -40,6 +40,9 @@ module "cdp_azure_prereqs" {
   cdp_subnet_names       = var.cdp_subnet_names
   cdp_gw_subnet_names    = var.cdp_gw_subnet_names
 
+  # Tags to apply resources (omitted by default)
+  env_tags = var.env_tags
+
 }
 
 module "cdp_deploy" {
@@ -75,6 +78,9 @@ module "cdp_deploy" {
   azure_ranger_audit_identity_id  = module.cdp_azure_prereqs.azure_ranger_audit_identity_id
   azure_log_identity_id           = module.cdp_azure_prereqs.azure_log_identity_id
   azure_raz_identity_id           = module.cdp_azure_prereqs.azure_raz_identity_id
+
+  # Tags to apply resources (omitted by default)
+  env_tags = var.env_tags
 
   depends_on = [
     module.cdp_azure_prereqs

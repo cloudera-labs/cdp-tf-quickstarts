@@ -63,6 +63,9 @@ module "cdp_deploy" {
   gcp_ranger_audit_service_account_email   = module.cdp_gcp_prereqs.gcp_ranger_audit_service_account_email
   gcp_log_service_account_email            = module.cdp_gcp_prereqs.gcp_log_service_account_email
 
+  # Tags to apply resources (omitted by default)
+  env_tags = var.env_tags
+
   depends_on = [
     module.cdp_gcp_prereqs
   ]

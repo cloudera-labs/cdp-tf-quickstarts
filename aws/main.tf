@@ -38,6 +38,8 @@ module "cdp_aws_prereqs" {
   # Inputs for Control Plane Connectivity in fully private 
   private_network_extensions = var.private_network_extensions
 
+  # Tags to apply resources (omitted by default)
+  env_tags = var.env_tags
 }
 
 module "cdp_deploy" {
@@ -67,6 +69,9 @@ module "cdp_deploy" {
 
   aws_log_instance_profile_arn      = module.cdp_aws_prereqs.aws_log_instance_profile_arn
   aws_idbroker_instance_profile_arn = module.cdp_aws_prereqs.aws_idbroker_instance_profile_arn
+
+  # Tags to apply resources (omitted by default)
+  env_tags = var.env_tags
 
   depends_on = [
     module.cdp_aws_prereqs

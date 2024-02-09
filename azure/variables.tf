@@ -31,6 +31,13 @@ variable "public_key_text" {
   default = null
 }
 
+variable "env_tags" {
+  type        = map(any)
+  description = "Tags applied to pvovisioned resources"
+
+  default = null
+}
+
 # ------- CDP Environment Deployment -------
 variable "deployment_template" {
   type = string
