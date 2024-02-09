@@ -17,7 +17,7 @@ provider "aws" {
 }
 
 module "cdp_aws_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.5.1"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.5.2"
 
   env_prefix = var.env_prefix
   aws_region = var.aws_region
@@ -38,10 +38,12 @@ module "cdp_aws_prereqs" {
   # Inputs for Control Plane Connectivity in fully private 
   private_network_extensions = var.private_network_extensions
 
+  # Tags to apply resources (omitted by default)
+  env_tags = var.env_tags
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.5.1"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.5.2"
 
   env_prefix          = var.env_prefix
   infra_type          = "aws"
@@ -68,6 +70,9 @@ module "cdp_deploy" {
   aws_log_instance_profile_arn      = module.cdp_aws_prereqs.aws_log_instance_profile_arn
   aws_idbroker_instance_profile_arn = module.cdp_aws_prereqs.aws_idbroker_instance_profile_arn
 
+  # Tags to apply resources (omitted by default)
+  env_tags = var.env_tags
+
   depends_on = [
     module.cdp_aws_prereqs
   ]
@@ -78,7 +83,7 @@ terraform {
   required_providers {
     cdp = {
       source  = "cloudera/cdp"
-      version = "0.4.1"
+      version = "0.4.2"
     }
   }
 }

@@ -25,7 +25,7 @@ provider "azuread" {
 }
 
 module "cdp_azure_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.5.1"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.5.2"
 
   env_prefix   = var.env_prefix
   azure_region = var.azure_region
@@ -40,10 +40,13 @@ module "cdp_azure_prereqs" {
   cdp_subnet_names       = var.cdp_subnet_names
   cdp_gw_subnet_names    = var.cdp_gw_subnet_names
 
+  # Tags to apply resources (omitted by default)
+  env_tags = var.env_tags
+
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.5.1"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.5.2"
 
   env_prefix          = var.env_prefix
   infra_type          = "azure"
@@ -75,6 +78,9 @@ module "cdp_deploy" {
   azure_ranger_audit_identity_id  = module.cdp_azure_prereqs.azure_ranger_audit_identity_id
   azure_log_identity_id           = module.cdp_azure_prereqs.azure_log_identity_id
   azure_raz_identity_id           = module.cdp_azure_prereqs.azure_raz_identity_id
+
+  # Tags to apply resources (omitted by default)
+  env_tags = var.env_tags
 
   depends_on = [
     module.cdp_azure_prereqs
