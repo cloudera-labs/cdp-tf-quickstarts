@@ -30,4 +30,4 @@ cdp login
 # Apply Terraform Quickstart Module
 terraform init
 
-terraform apply
+terraform apply -auto-approve
