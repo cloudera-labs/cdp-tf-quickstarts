@@ -20,8 +20,7 @@ export TF_VAR_deployment_template="${3:-"semi-private"}"
 
 # Install Terraform
 curl -fsSL https://releases.hashicorp.com/terraform/1.7.1/terraform_1.7.1_linux_amd64.zip -o terraform.zip
-unzip terraform.zip
-sudo mv terraform /usr/local/bin/
+unzip -o terraform.zip -d ${HOME}
 rm terraform.zip
 
 # Checkout CDP Quickstart Repository
@@ -34,6 +33,6 @@ pip install cdpcli
 cdp login
 
 # Apply Terraform Quickstart Module
-terraform init
+${HOME}/terraform init
 
-terraform apply -auto-approve
+${HOME}/terraform apply -auto-approve
