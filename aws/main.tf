@@ -17,7 +17,7 @@ provider "aws" {
 }
 
 module "cdp_aws_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.5.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.6.0"
 
   env_prefix = var.env_prefix
   aws_region = var.aws_region
@@ -43,13 +43,16 @@ module "cdp_aws_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.5.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.0"
 
   env_prefix          = var.env_prefix
   infra_type          = "aws"
   region              = var.aws_region
   keypair_name        = local.aws_key_pair
   deployment_template = var.deployment_template
+
+  environment_async_creation = var.environment_async_creation
+  datalake_async_creation    = var.datalake_async_creation
 
   # From pre-reqs module output
   aws_vpc_id             = module.cdp_aws_prereqs.aws_vpc_id
@@ -83,7 +86,7 @@ terraform {
   required_providers {
     cdp = {
       source  = "cloudera/cdp"
-      version = "0.4.2"
+      version = "0.5.8"
     }
   }
 }

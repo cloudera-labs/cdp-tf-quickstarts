@@ -45,6 +45,21 @@ variable "deployment_template" {
   description = "Deployment Pattern to use for Cloud resources and CDP"
 }
 
+variable "environment_async_creation" {
+  type = bool
+
+  description = "Flag to specify if Terraform should wait for CDP environment resource creation/deletion"
+
+  default = false
+}
+
+variable "datalake_async_creation" {
+  type = bool
+
+  description = "Flag to specify if Terraform should wait for CDP datalake resource creation/deletion"
+
+  default = false
+}
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
   type = object({

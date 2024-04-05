@@ -21,6 +21,13 @@ azure_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e
 # ------- CDP Environment Deployment -------
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
 
+# ------- Resource Tagging -------
+# **NOTE: An example of how to specify tags is below; uncomment & edit if required
+# env_tags = {
+#     owner   = "<ENTER_VALUE>"
+#     project = "<ENTER_VALUE>"
+#     enddate = "<ENTER_VALUE>"
+# }
 
 
 # ------- Optional inputs for SSH key and Network Access Settings -------
