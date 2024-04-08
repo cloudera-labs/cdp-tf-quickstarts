@@ -19,7 +19,7 @@ provider "google" {
 
 
 module "cdp_gcp_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs?ref=v0.5.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs?ref=v0.6.1"
 
   env_prefix = var.env_prefix
   gcp_region = var.gcp_region
@@ -36,7 +36,7 @@ module "cdp_gcp_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.5.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.1"
 
   env_prefix          = var.env_prefix
   infra_type          = "gcp"
@@ -44,6 +44,9 @@ module "cdp_deploy" {
   region              = var.gcp_region
   public_key_text     = local.public_key_text
   deployment_template = var.deployment_template
+
+  environment_async_creation = var.environment_async_creation
+  datalake_async_creation    = var.datalake_async_creation
 
   # From pre-reqs module output
   gcp_network_name     = module.cdp_gcp_prereqs.gcp_vpc_name

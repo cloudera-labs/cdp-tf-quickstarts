@@ -25,7 +25,7 @@ provider "azuread" {
 }
 
 module "cdp_azure_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.5.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.6.1"
 
   env_prefix   = var.env_prefix
   azure_region = var.azure_region
@@ -46,13 +46,16 @@ module "cdp_azure_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.5.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.1"
 
   env_prefix          = var.env_prefix
   infra_type          = "azure"
   region              = var.azure_region
   public_key_text     = local.public_key_text
   deployment_template = var.deployment_template
+
+  environment_async_creation = var.environment_async_creation
+  datalake_async_creation    = var.datalake_async_creation
 
   # From pre-reqs module output
   azure_subscription_id = module.cdp_azure_prereqs.azure_subscription_id
@@ -62,6 +65,9 @@ module "cdp_deploy" {
   azure_vnet_name                = module.cdp_azure_prereqs.azure_vnet_name
   azure_cdp_subnet_names         = module.cdp_azure_prereqs.azure_cdp_subnet_names
   azure_cdp_gateway_subnet_names = module.cdp_azure_prereqs.azure_cdp_gateway_subnet_names
+
+  azure_cdp_flexible_server_delegated_subnet_names = module.cdp_azure_prereqs.azure_cdp_flexible_server_delegated_subnet_names
+  azure_database_private_dns_zone_id               = module.cdp_azure_prereqs.azure_database_private_dns_zone_id
 
   azure_security_group_default_uri = module.cdp_azure_prereqs.azure_security_group_default_uri
   azure_security_group_knox_uri    = module.cdp_azure_prereqs.azure_security_group_knox_uri
