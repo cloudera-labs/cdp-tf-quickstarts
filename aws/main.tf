@@ -17,7 +17,7 @@ provider "aws" {
 }
 
 module "cdp_aws_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.6.0"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.6.1"
 
   env_prefix = var.env_prefix
   aws_region = var.aws_region
@@ -43,7 +43,7 @@ module "cdp_aws_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.0"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.1"
 
   env_prefix          = var.env_prefix
   infra_type          = "aws"
