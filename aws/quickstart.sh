@@ -17,6 +17,10 @@
 export TF_VAR_aws_region="${1:-""}"
 export TF_VAR_env_prefix="${2:-""}"
 export TF_VAR_deployment_template="${3:-"semi-private"}"
+export TF_VAR_env_tags='{"deploy_tool": "express-tf", "env_prefix": "'"$2"'"}'
+export TF_VAR_create_vpc_endpoints="false"
+export TF_VAR_environment_async_creation="true"
+export TF_VAR_datalake_async_creation="true"
 
 # Install Terraform
 curl -fsSL https://releases.hashicorp.com/terraform/1.7.1/terraform_1.7.1_linux_amd64.zip -o terraform.zip
@@ -24,7 +28,7 @@ unzip -o terraform.zip -d ${HOME}
 rm terraform.zip
 
 # Checkout CDP Quickstart Repository
-git clone --branch v0.5.0 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
+git clone --branch v0.6.1 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
 cd cdp-tf-quickstarts/aws
 
 # Install CDP CLI and Log In
