@@ -60,6 +60,15 @@ variable "datalake_async_creation" {
 
   default = false
 }
+
+variable "create_vpc_endpoints" {
+  type = bool
+
+  description = "Flag to specify if VPC Endpoints should be created"
+
+  default = true
+}
+
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
   type = object({

@@ -37,6 +37,8 @@ module "cdp_aws_prereqs" {
 
   # Inputs for Control Plane Connectivity in fully private 
   private_network_extensions = var.private_network_extensions
+  # Flag to control creation of vpc_endpoints variable
+  create_vpc_endpoints = var.create_vpc_endpoints
 
   # Tags to apply resources (omitted by default)
   env_tags = var.env_tags
