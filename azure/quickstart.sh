@@ -17,9 +17,12 @@
 export TF_VAR_azure_region"=${1:-""}"
 export TF_VAR_env_prefix="${2:-""}"
 export TF_VAR_deployment_template="${4:-"semi-private"}"
+export TF_VAR_env_tags='{"deploy_tool": "express-tf", "env_prefix": "'"$2"'"}'
+export TF_VAR_environment_async_creation="true"
+export TF_VAR_datalake_async_creation="true"
 
 # Checkout CDP Quickstart Repository
-git clone --branch v0.5.0 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
+git clone --branch v0.6.1 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
 cd cdp-tf-quickstarts/azure
 
 # Install CDP CLI and Log In
