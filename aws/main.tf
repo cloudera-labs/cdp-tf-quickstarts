@@ -155,7 +155,7 @@ data "http" "my_ip" {
   url = "https://ipv4.icanhazip.com"
 }
 
-# Add missing iam:Tag* permissions to Cross-Account Policy
+# ------- Add missing iam:Tag* permissions to Cross-Account Policy
 data "aws_iam_policy_document" "cdp_extra_xaccount_policy_doc" {
   version = "2012-10-17"
   
