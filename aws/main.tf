@@ -154,3 +154,34 @@ data "http" "my_ip" {
 
   url = "https://ipv4.icanhazip.com"
 }
+
+# Add missing iam:Tag* permissions to Cross-Account Policy
+data "aws_iam_policy_document" "cdp_extra_xaccount_policy_doc" {
+  version = "2012-10-17"
+  
+  statement {
+    sid = "AllowIAMTagRole"
+
+    actions = ["iam:TagRole"]
+    effect  = "Allow"
+
+    resources = [
+      "*",
+    ]
+  }
+}
+
+# Create the IAM role that uses the above assume_role_policy document
+resource "aws_iam_policy" "cdp_extra_xaccount_policy" {
+  name        = "${var.env_prefix}-cross-account-extra"
+  description = "Additional Cross Account Policy for ${var.env_prefix}"
+
+  tags = { Name = "${var.env_prefix}-cross-account-extra" }
+
+  policy = data.aws_iam_policy_document.cdp_extra_xaccount_policy_doc.json
+}
+
+resource "aws_iam_role_policy_attachment" "cdp_extra_xaccount_attach" {
+  role       = split("/", module.cdp_aws_prereqs.aws_xaccount_role_arn)[1]
+  policy_arn = aws_iam_policy.cdp_extra_xaccount_policy.arn
+}
