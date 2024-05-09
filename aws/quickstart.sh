@@ -16,7 +16,8 @@
 
 export TF_VAR_aws_region="${1:-""}"
 export TF_VAR_env_prefix="${2:-""}"
-export TF_VAR_deployment_template="${3:-"semi-private"}"
+export ACCOUNT_ID="${3:-""}"
+export TF_VAR_deployment_template="${4:-"semi-private"}"
 export TF_VAR_env_tags='{"deploy_tool": "express-tf", "env_prefix": "'"$2"'"}'
 export TF_VAR_create_vpc_endpoints="false"
 export TF_VAR_environment_async_creation="true"
@@ -34,7 +35,7 @@ cd cdp-tf-quickstarts/aws
 # Install CDP CLI and Log In
 pip install cdpcli
 
-cdp login
+cdp login --account-id "${ACCOUNT_ID}" --use-device-code
 
 # Apply Terraform Quickstart Module
 ${HOME}/terraform init
