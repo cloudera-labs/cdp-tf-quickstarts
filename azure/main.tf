@@ -25,7 +25,7 @@ provider "azuread" {
 }
 
 module "cdp_azure_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.6.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.6.3"
 
   env_prefix   = var.env_prefix
   azure_region = var.azure_region
@@ -46,13 +46,17 @@ module "cdp_azure_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.3"
 
   env_prefix          = var.env_prefix
   infra_type          = "azure"
   region              = var.azure_region
   public_key_text     = local.public_key_text
   deployment_template = var.deployment_template
+  datalake_scale      = var.datalake_scale
+  datalake_recipes    = var.datalake_recipes
+  freeipa_recipes     = var.freeipa_recipes
+  multiaz             = var.multiaz
 
   environment_async_creation = var.environment_async_creation
   datalake_async_creation    = var.datalake_async_creation
