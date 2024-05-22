@@ -49,4 +49,4 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # cdp_resourcegroup_name="<ENTER_EXISTING_RG_NAME>" # Name of pre-existing Resource Group for CDP environment. Required if create_vnet is false
 # cdp_vnet_name="<ENTER_EXISTING_VNET_NAME>" # Name of pre-existing VNet for CDP environment. Required if create_vnet is false
 # cdp_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>","<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP resources. Required if create_vnet is false
-# cdp_gw_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP Gateway. Required if create_vnet is false
+# cdp_gw_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP Gateway. Required if create_vnet is false. NOTE: Can be an empty list depending on deployment_template.

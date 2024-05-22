@@ -46,7 +46,7 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # create_vpc=true # Set to false to use pre-existing VPC
 
 # cdp_vpc_id="<ENTER_EXISTING_VPC_ID>" # VPC ID for CDP environment. Required if create_vpc is false
-# cdp_public_subnet_ids=["<ENTER_EXISTING_PUBLIC_SUBNET_ID>","<ENTER_EXISTING_PUBLIC_SUBNET_ID>"] # List of pre-existing public subnet ids. Required if create_vpc is false
+# cdp_public_subnet_ids=["<ENTER_EXISTING_PUBLIC_SUBNET_ID>","<ENTER_EXISTING_PUBLIC_SUBNET_ID>"] # List of pre-existing public subnet ids. Required if create_vpc is false. NOTE: Can be an empty list depending on deployment_template.
 # cdp_private_subnet_ids=["<ENTER_EXISTING_PRIVATE_SUBNET_ID>,<ENTER_EXISTING_PRIVATE_SUBNET_ID>"] # List of pre-existing private subnet ids. Required if create_vpc is false
 
 # ------- Optional inputs for Control Plane Connectivity in fully private environment -------

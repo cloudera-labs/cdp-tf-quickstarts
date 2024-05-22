@@ -47,15 +47,15 @@ export ARM_TENANT_ID="<sp_tenant_id>"
 export ARM_SUBSCRIPTION_ID="<sp_subscription_id>" 
 ```
 
-* The Azure API permissions listed are required by the provisioning account to create the Azure pre-requisite resources.
+* The Azure API permissions listed are required by the provisioning account to create the Azure pre-requisite resources. Note that all permissions are of type Application (rather than Delegated).
 
 | API Permission    | Purpose |
 | ------------------| ------- |
+| Microsoft Graph - Application.Read.All   | Read all applications |
 | Microsoft Graph - Application.ReadWrite.All   | Read and write all applications |
 | Microsoft Graph - Application.ReadWrite.OwnedBy | Manage apps that this app creates or owns |
-| Microsoft Graph - AppRoleAssignment.ReadWrite.All | Manage app permission grants and app role assignments |
 | Microsoft Graph - Directory.ReadWrite.All | Read and write directory data |
-| Microsoft Graph - User.Read | Sign in and read user profile |
+| Microsoft Graph - User.Read.All | Read all users' full profiles |
 
 #### Notes on GCP authentication
 

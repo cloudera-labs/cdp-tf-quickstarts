@@ -45,6 +45,15 @@ variable "deployment_template" {
   description = "Deployment Pattern to use for Cloud resources and CDP"
 }
 
+# Disable multiaz deployment as not all Azure regions support it
+variable "multiaz" {
+  type = bool
+
+  description = "Flag to specify that the FreeIPA and DataLake instances will be deployed across multi-availability zones."
+
+  default = false
+}
+
 variable "environment_async_creation" {
   type = bool
 
@@ -60,6 +69,42 @@ variable "datalake_async_creation" {
 
   default = false
 }
+
+variable "datalake_scale" {
+  type = string
+
+  description = "The scale of the datalake. Valid values are LIGHT_DUTY, ENTERPRISE."
+
+  validation {
+    condition     = (var.datalake_scale == null ? true : contains(["LIGHT_DUTY", "ENTERPRISE", "MEDIUM_DUTY_HA"], var.datalake_scale))
+    error_message = "Valid values for var: datalake_scale are (LIGHT_DUTY, ENTERPRISE, MEDIUM_DUTY_HA)."
+  }
+
+  default = null
+
+}
+
+variable "freeipa_recipes" {
+  type = set(string)
+
+  description = "The recipes for the FreeIPA cluster"
+
+  default = null
+}
+
+variable "datalake_recipes" {
+  type = set(
+    object({
+      instance_group_name = string,
+      recipe_names        = set(string)
+    })
+  )
+
+  description = "Additional recipes that will be attached on the datalake instances"
+
+  default = null
+}
+
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
   type = object({

@@ -69,6 +69,41 @@ variable "create_vpc_endpoints" {
   default = true
 }
 
+variable "datalake_scale" {
+  type = string
+
+  description = "The scale of the datalake. Valid values are LIGHT_DUTY, ENTERPRISE."
+
+  validation {
+    condition     = (var.datalake_scale == null ? true : contains(["LIGHT_DUTY", "ENTERPRISE", "MEDIUM_DUTY_HA"], var.datalake_scale))
+    error_message = "Valid values for var: datalake_scale are (LIGHT_DUTY, ENTERPRISE, MEDIUM_DUTY_HA)."
+  }
+
+  default = null
+
+}
+
+variable "freeipa_recipes" {
+  type = set(string)
+
+  description = "The recipes for the FreeIPA cluster"
+
+  default = null
+}
+
+variable "datalake_recipes" {
+  type = set(
+    object({
+      instance_group_name = string,
+      recipe_names        = set(string)
+    })
+  )
+
+  description = "Additional recipes that will be attached on the datalake instances"
+
+  default = null
+}
+
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
   type = object({
