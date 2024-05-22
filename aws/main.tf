@@ -14,6 +14,11 @@
 
 provider "aws" {
   region = var.aws_region
+
+  # ignore tags created by data services
+  ignore_tags {
+    key_prefixes = ["kubernetes.io/cluster"]
+  }
 }
 
 module "cdp_aws_prereqs" {
