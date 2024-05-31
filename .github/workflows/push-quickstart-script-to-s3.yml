@@ -1,0 +1,62 @@
+---
+
+# Copyright 2024 Cloudera, Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Push quickstart scripts to S3
+on: 
+    push: 
+      branches:
+        - eob-devel
+      tags:
+        - eob
+jobs:
+  push-to-s3:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set location to push
+      id: s3-path
+      run: |
+        if [[ $GITHUB_REF_NAME == "eob" && $GITHUB_REF_TYPE == "tag" ]]; then
+          echo "TRIGGER=eob-tag" >> $GITHUB_ENV
+          echo "S3_FOLDER=latest" >> $GITHUB_ENV
+        fi
+
+        if [[ $GITHUB_REF_NAME == "eob-devel" && $GITHUB_REF_TYPE == "branch" ]]; then
+          echo "TRIGGER=eob-devel-branch" >> $GITHUB_ENV
+          echo "S3_FOLDER=dev" >> $GITHUB_ENV
+        fi
+  
+    - name: Print the path
+      run: |
+        echo "Trigger is ${{ env.TRIGGER }}"
+        echo "S3 Bucket is ${{ vars.S3_BUCKET }}"
+        echo "S3 Path format is s3://${{ vars.S3_BUCKET }}/<CLOUD>/${{ env.S3_FOLDER }}"
+     
+    - name: Authenticate with AWS
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Push quickstart scripts to S3
+      run: |
+        for csp in aws azure gcp
+        do
+          aws s3 cp ${csp}/quickstart.sh s3://${{ vars.S3_BUCKET }}/${csp}/${{ env.S3_FOLDER }}/
+        done
