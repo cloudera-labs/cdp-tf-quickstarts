@@ -60,7 +60,7 @@ module "cdp_deploy" {
   datalake_scale      = var.datalake_scale
   datalake_recipes    = var.datalake_recipes
   freeipa_recipes     = var.freeipa_recipes
-  
+
   environment_async_creation = var.environment_async_creation
   datalake_async_creation    = var.datalake_async_creation
 
