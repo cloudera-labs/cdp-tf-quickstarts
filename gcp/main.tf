@@ -12,6 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+terraform {
+  required_version = ">= 1.5.7"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 5.37.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.0.5"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = ">= 2.5.1"
+    }
+    http = {
+      source  = "hashicorp/http"
+      version = ">= 3.4.3"
+    }
+  }
+}
+
 provider "google" {
   project = var.gcp_project
   region  = var.gcp_region
