@@ -22,6 +22,7 @@ export TF_VAR_env_tags='{"deploy_tool": "express-tf", "env_prefix": "'"$2"'"}'
 export TF_VAR_create_vpc_endpoints="false"
 export TF_VAR_environment_async_creation="true"
 export TF_VAR_datalake_async_creation="true"
+export TF_VAR_ingress_extra_cidrs_and_ports='{ cidrs = ["0.0.0.0/0"], ports = [443, 22] }'
 
 # Install Terraform
 curl -fsSL https://releases.hashicorp.com/terraform/1.7.1/terraform_1.7.1_linux_amd64.zip -o terraform.zip
