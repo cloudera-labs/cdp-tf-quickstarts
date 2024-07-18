@@ -22,6 +22,7 @@ export TF_VAR_deployment_template="${5:-"semi-private"}"
 export TF_VAR_env_tags='{"deploy_tool": "express-tf", "env_prefix": "'"$2"'"}'
 export TF_VAR_environment_async_creation="true"
 export TF_VAR_datalake_async_creation="true"
+export TF_VAR_ingress_extra_cidrs_and_ports='{ cidrs = ["0.0.0.0/0"], ports = [443, 22] }'
 
 # Checkout CDP Quickstart Repository
 git clone --branch v0.6.1 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
