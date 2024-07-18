@@ -60,7 +60,7 @@ module "cdp_deploy" {
   datalake_scale      = var.datalake_scale
   datalake_recipes    = var.datalake_recipes
   freeipa_recipes     = var.freeipa_recipes
-  
+
   environment_async_creation = var.environment_async_creation
   datalake_async_creation    = var.datalake_async_creation
 
@@ -93,10 +93,27 @@ module "cdp_deploy" {
 
 # Use the CDP Terraform Provider to find the xaccount account and external ids
 terraform {
+  required_version = ">= 1.5.7"
   required_providers {
     cdp = {
       source  = "cloudera/cdp"
-      version = "0.5.8"
+      version = ">=5.8"
+    }
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.58.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.0.5"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = ">= 2.5.1"
+    }
+    http = {
+      source  = "hashicorp/http"
+      version = ">= 3.4.3"
     }
   }
 }
