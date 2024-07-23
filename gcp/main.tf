@@ -12,6 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+terraform {
+  required_version = ">= 1.5.7"
+  required_providers {
+    cdp = {
+      source  = "cloudera/cdp"
+      version = "~> 0.6.1"
+    }
+    google = {
+      source  = "hashicorp/google"
+      version = "4.84.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0.5"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.5.1"
+    }
+    http = {
+      source  = "hashicorp/http"
+      version = "~> 3.2.1"
+    }
+  }
+}
+
 provider "google" {
   project = var.gcp_project
   region  = var.gcp_region
@@ -68,6 +94,7 @@ module "cdp_deploy" {
   gcp_datalake_admin_service_account_email = module.cdp_gcp_prereqs.gcp_datalake_admin_service_account_email
   gcp_ranger_audit_service_account_email   = module.cdp_gcp_prereqs.gcp_ranger_audit_service_account_email
   gcp_log_service_account_email            = module.cdp_gcp_prereqs.gcp_log_service_account_email
+  gcp_raz_service_account_email            = module.cdp_gcp_prereqs.gcp_datalake_admin_service_account_email
 
   # Tags to apply resources (omitted by default)
   env_tags = var.env_tags
