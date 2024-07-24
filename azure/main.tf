@@ -12,6 +12,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+terraform {
+  required_version = ">= 1.5.7"
+  required_providers {
+    cdp = {
+      source  = "cloudera/cdp"
+      version = "~> 0.6.1"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "3.84.0"
+    }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "2.46.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0.5"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.5.1"
+    }
+    http = {
+      source  = "hashicorp/http"
+      version = "~> 3.2.1"
+    }
+  }
+}
+
 provider "azurerm" {
   features {
     resource_group {
@@ -25,7 +55,7 @@ provider "azuread" {
 }
 
 module "cdp_azure_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.7.1"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.7.3"
 
   env_prefix   = var.env_prefix
   azure_region = var.azure_region
@@ -46,7 +76,7 @@ module "cdp_azure_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.7.1"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.7.3"
 
   env_prefix          = var.env_prefix
   infra_type          = "azure"
