@@ -15,21 +15,25 @@
 terraform {
   required_version = ">= 1.5.7"
   required_providers {
+    cdp = {
+      source  = "cloudera/cdp"
+      version = "~> 0.6.1"
+    }
     google = {
       source  = "hashicorp/google"
-      version = ">= 5.37.0"
+      version = "4.84.0"
     }
     tls = {
       source  = "hashicorp/tls"
-      version = ">= 4.0.5"
+      version = "~> 4.0.5"
     }
     local = {
       source  = "hashicorp/local"
-      version = ">= 2.5.1"
+      version = "~> 2.5.1"
     }
     http = {
       source  = "hashicorp/http"
-      version = ">= 3.4.3"
+      version = "~> 3.2.1"
     }
   }
 }
@@ -41,7 +45,7 @@ provider "google" {
 
 
 module "cdp_gcp_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs?ref=v0.6.3"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs?ref=v0.7.3"
 
   env_prefix = var.env_prefix
   gcp_region = var.gcp_region
@@ -58,7 +62,7 @@ module "cdp_gcp_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.3"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.7.3"
 
   env_prefix          = var.env_prefix
   infra_type          = "gcp"
@@ -90,6 +94,7 @@ module "cdp_deploy" {
   gcp_datalake_admin_service_account_email = module.cdp_gcp_prereqs.gcp_datalake_admin_service_account_email
   gcp_ranger_audit_service_account_email   = module.cdp_gcp_prereqs.gcp_ranger_audit_service_account_email
   gcp_log_service_account_email            = module.cdp_gcp_prereqs.gcp_log_service_account_email
+  gcp_raz_service_account_email            = module.cdp_gcp_prereqs.gcp_datalake_admin_service_account_email
 
   # Tags to apply resources (omitted by default)
   env_tags = var.env_tags
