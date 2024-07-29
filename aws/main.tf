@@ -12,6 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+terraform {
+  required_version = ">= 1.5.7"
+  required_providers {
+    cdp = {
+      source  = "cloudera/cdp"
+      version = "~> 0.6.1"
+    }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~>5.30"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 4.0.5"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.5.1"
+    }
+    http = {
+      source  = "hashicorp/http"
+      version = "~> 3.2.1"
+    }
+  }
+}
 provider "aws" {
   region = var.aws_region
 
@@ -22,7 +47,7 @@ provider "aws" {
 }
 
 module "cdp_aws_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.6.3"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.7.3"
 
   env_prefix = var.env_prefix
   aws_region = var.aws_region
@@ -50,7 +75,7 @@ module "cdp_aws_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.3"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.7.3"
 
   env_prefix          = var.env_prefix
   infra_type          = "aws"
@@ -79,6 +104,7 @@ module "cdp_deploy" {
   aws_xaccount_role_arn       = module.cdp_aws_prereqs.aws_xaccount_role_arn
   aws_datalake_admin_role_arn = module.cdp_aws_prereqs.aws_datalake_admin_role_arn
   aws_ranger_audit_role_arn   = module.cdp_aws_prereqs.aws_ranger_audit_role_arn
+  aws_raz_role_arn            = module.cdp_aws_prereqs.aws_datalake_admin_role_arn
 
   aws_log_instance_profile_arn      = module.cdp_aws_prereqs.aws_log_instance_profile_arn
   aws_idbroker_instance_profile_arn = module.cdp_aws_prereqs.aws_idbroker_instance_profile_arn
@@ -91,32 +117,7 @@ module "cdp_deploy" {
   ]
 }
 
-# Use the CDP Terraform Provider to find the xaccount account and external ids
-terraform {
-  required_version = ">= 1.5.7"
-  required_providers {
-    cdp = {
-      source  = "cloudera/cdp"
-      version = ">=5.8"
-    }
-    aws = {
-      source  = "hashicorp/aws"
-      version = ">= 5.58.0"
-    }
-    tls = {
-      source  = "hashicorp/tls"
-      version = ">= 4.0.5"
-    }
-    local = {
-      source  = "hashicorp/local"
-      version = ">= 2.5.1"
-    }
-    http = {
-      source  = "hashicorp/http"
-      version = ">= 3.4.3"
-    }
-  }
-}
+# Use the CDP Terraform Provider to find the xaccount account and external ids 
 data "cdp_environments_aws_credential_prerequisites" "cdp_prereqs" {}
 
 

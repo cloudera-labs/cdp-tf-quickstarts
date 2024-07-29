@@ -15,25 +15,29 @@
 terraform {
   required_version = ">= 1.5.7"
   required_providers {
+    cdp = {
+      source  = "cloudera/cdp"
+      version = "~> 0.6.1"
+    }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 3.111.0"
+      version = "3.84.0"
     }
     azuread = {
       source  = "hashicorp/azuread"
-      version = ">= 2.53.1"
+      version = "2.46.0"
     }
     tls = {
       source  = "hashicorp/tls"
-      version = ">= 4.0.5"
+      version = "~> 4.0.5"
     }
     local = {
       source  = "hashicorp/local"
-      version = ">= 2.5.1"
+      version = "~> 2.5.1"
     }
     http = {
       source  = "hashicorp/http"
-      version = ">= 3.4.3"
+      version = "~> 3.2.1"
     }
   }
 }
@@ -51,7 +55,7 @@ provider "azuread" {
 }
 
 module "cdp_azure_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.6.3"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.7.3"
 
   env_prefix   = var.env_prefix
   azure_region = var.azure_region
@@ -72,7 +76,7 @@ module "cdp_azure_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.6.3"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.7.3"
 
   env_prefix          = var.env_prefix
   infra_type          = "azure"
@@ -96,8 +100,8 @@ module "cdp_deploy" {
   azure_cdp_subnet_names         = module.cdp_azure_prereqs.azure_cdp_subnet_names
   azure_cdp_gateway_subnet_names = module.cdp_azure_prereqs.azure_cdp_gateway_subnet_names
 
-  azure_cdp_flexible_server_delegated_subnet_names = module.cdp_azure_prereqs.azure_cdp_flexible_server_delegated_subnet_names
-  azure_database_private_dns_zone_id               = module.cdp_azure_prereqs.azure_database_private_dns_zone_id
+  azure_environment_flexible_server_delegated_subnet_names = module.cdp_azure_prereqs.azure_cdp_flexible_server_delegated_subnet_names
+  azure_database_private_dns_zone_id                       = module.cdp_azure_prereqs.azure_database_private_dns_zone_id
 
   azure_security_group_default_uri = module.cdp_azure_prereqs.azure_security_group_default_uri
   azure_security_group_knox_uri    = module.cdp_azure_prereqs.azure_security_group_knox_uri

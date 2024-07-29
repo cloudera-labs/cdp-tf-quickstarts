@@ -24,7 +24,7 @@ export TF_VAR_datalake_async_creation="true"
 export TF_VAR_ingress_extra_cidrs_and_ports='{ cidrs = ["0.0.0.0/0], ports = [443, 22] }'
 
 # Checkout CDP Quickstart Repository
-git clone --branch v0.6.1 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
+git clone --branch v0.7.2 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
 cd cdp-tf-quickstarts/azure
 
 # Install CDP CLI and Log In
