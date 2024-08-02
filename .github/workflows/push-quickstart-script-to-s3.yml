@@ -54,9 +54,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - name: Push quickstart scripts to S3
+    - name: Push quickstart and destroy scripts to S3
       run: |
         for csp in aws azure gcp
         do
           aws s3 cp ${csp}/quickstart.sh s3://${{ vars.S3_BUCKET }}/${csp}/${{ env.S3_FOLDER }}/
+          aws s3 cp ${csp}/destroy.sh s3://${{ vars.S3_BUCKET }}/${csp}/${{ env.S3_FOLDER }}/
         done
