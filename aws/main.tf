@@ -56,8 +56,8 @@ module "cdp_aws_prereqs" {
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
 
   # Using CDP TF Provider cred pre-reqs data source for values of xaccount account_id and external_id
-  xaccount_account_id  = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.account_id
-  xaccount_external_id = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.external_id
+  xaccount_account_id         = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.account_id
+  xaccount_external_id        = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.external_id
   xaccount_account_policy_doc = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policy)
 
   # Policy documents from CDP TF Provider cred pre-reqs
