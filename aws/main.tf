@@ -47,7 +47,7 @@ provider "aws" {
 }
 
 module "cdp_aws_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.7.4"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.8.0"
 
   env_prefix = var.env_prefix
   aws_region = var.aws_region
@@ -58,6 +58,21 @@ module "cdp_aws_prereqs" {
   # Using CDP TF Provider cred pre-reqs data source for values of xaccount account_id and external_id
   xaccount_account_id  = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.account_id
   xaccount_external_id = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.external_id
+  xaccount_account_policy_doc = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policy)
+
+  # Policy documents from CDP TF Provider cred pre-reqs
+  idbroker_policy_doc = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Idbroker_Assumer"])
+
+  data_bucket_access_policy_doc   = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Bucket_Access"])
+  log_bucket_access_policy_doc    = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Bucket_Access"])
+  backup_bucket_access_policy_doc = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Bucket_Access"])
+
+  datalake_admin_s3_policy_doc = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Datalake_Admin"])
+  datalake_backup_policy_doc   = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Datalake_Backup"])
+  datalake_restore_policy_doc  = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Datalake_Restore"])
+
+  log_data_access_policy_doc = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Log_Policy"])
+  ranger_audit_s3_policy_doc = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Ranger_Audit"])
 
   # Inputs for BYO-VPC
   create_vpc             = var.create_vpc
@@ -75,7 +90,7 @@ module "cdp_aws_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.7.4"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.8.0"
 
   env_prefix          = var.env_prefix
   infra_type          = "aws"
@@ -117,7 +132,7 @@ module "cdp_deploy" {
   ]
 }
 
-# Use the CDP Terraform Provider to find the xaccount account and external ids 
+# Use the CDP Terraform Provider to find the xaccount account, external ids and policy contents
 data "cdp_environments_aws_credential_prerequisites" "cdp_prereqs" {}
 
 
