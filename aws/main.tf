@@ -98,6 +98,7 @@ module "cdp_deploy" {
   keypair_name        = local.aws_key_pair
   deployment_template = var.deployment_template
   datalake_scale      = var.datalake_scale
+  enable_raz          = var.enable_raz
   datalake_recipes    = var.datalake_recipes
   freeipa_recipes     = var.freeipa_recipes
 

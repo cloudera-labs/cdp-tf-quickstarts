@@ -105,6 +105,14 @@ variable "datalake_recipes" {
   default = null
 }
 
+variable "enable_raz" {
+  type = bool
+
+  description = "Flag to enable Ranger Authorization Service (RAZ)"
+
+  default = true
+}
+
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
   type = object({
