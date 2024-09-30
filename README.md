@@ -69,16 +69,18 @@ export ARM_SUBSCRIPTION_ID="<sp_subscription_id>"
 
 * The Google Cloud IAM roles listed below are required by the provisioning account to create the GCP pre-requisite resources.
 
-| IAM Role                  | 
-| ------------------------- | 
-| Compute Network Admin     | 
-| Compute Security Admin    | 
-| Role Administrator        | 
-| Security Admin            | 
-| Service Account Admin     | 
-| Service Account Key Admin | 
-| Storage Admin             | 
-| Viewer                    | 
+| IAM Role                  |
+| ------------------------- |
+| Compute Network Admin     |
+| Compute Security Admin    |
+| Role Administrator        |
+| Security Admin            |
+| Service Account Admin     |
+| Service Account Key Admin |
+| Storage Admin             |
+| Viewer                    |
+
+* The Google project Id can be specified via the `gcp_project` input variable, the `GOOGLE_PROJECT` environment variable or the default project set via the Cloud SDK. This is described in the [Google Provider Default Values Configuration](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#provider-default-values-configuration) documentation.
 
 ### Input file configuration
 

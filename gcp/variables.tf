@@ -20,7 +20,9 @@ variable "env_prefix" {
 
 variable "gcp_project" {
   type        = string
-  description = "Region which Cloud resources will be created"
+  description = "Region which Cloud resources will be created. Can also be set via gcloud project default or environment variable."
+
+  default = null
 }
 
 variable "gcp_region" {
