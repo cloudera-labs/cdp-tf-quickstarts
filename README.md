@@ -25,7 +25,8 @@ To use the module provided here, you will need the following prerequisites:
 
 * Terraform can be installed by following the instructions at https://developer.hashicorp.com/terraform/downloads
 
-#### Notes on AWS authentication
+<details>
+    <summary> Notes on AWS authentication </summary>
 
 * Details of the different methods to authenticate with AWS are available in the [aws Terraform provider docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration).
 
@@ -34,8 +35,11 @@ To use the module provided here, you will need the following prerequisites:
   * via shared configuration/credential files (e.g. the `$HOME/.aws/credentials` file). The `AWS_PROFILE` environment variable can be set to specify a named AWS profile. 
 
 * Note that the AWS region to use should always be specifed as a Terraform input variable (with the `aws_region` variable). This region variable is also used an input to the CDP deploy module used to identify the Cloud Provider region.
+</details>
+<br>
+<details>
+    <summary> Notes on Azure authentication </summary>
 
-#### Notes on Azure authentication
 
 * Where you have more than one Azure Subscription the id to use can be passed via the the `ARM_SUBSCRIPTION_ID` environment variable.
 
@@ -56,8 +60,10 @@ export ARM_SUBSCRIPTION_ID="<sp_subscription_id>"
 | Microsoft Graph - Application.ReadWrite.OwnedBy | Manage apps that this app creates or owns |
 | Microsoft Graph - Directory.ReadWrite.All | Read and write directory data |
 | Microsoft Graph - User.Read.All | Read all users' full profiles |
-
-#### Notes on GCP authentication
+</details>
+<br>
+<details>
+    <summary> Notes on GCP authentication </summary>
 
 * The [Getting Started Docs for Google Terraform Provider](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started#adding-credentials) gives details on the two recommended ways to authenticate with the GCP API.
   1. The Google Cloud SDK (`gcloud`) can be installed and a User Application Default Credentials ("ADCs") can be created by running the command `gcloud auth application-default login`
@@ -81,6 +87,7 @@ export ARM_SUBSCRIPTION_ID="<sp_subscription_id>"
 | Viewer                    |
 
 * The Google project Id can be specified via the `gcp_project` input variable, the `GOOGLE_PROJECT` environment variable or the default project set via the Cloud SDK. This is described in the [Google Provider Default Values Configuration](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#provider-default-values-configuration) documentation.
+</details>
 
 ### Input file configuration
 
@@ -88,7 +95,8 @@ The `terraform.tfvars.template` file in the required cloud provider directory co
 
 Sample contents with indicators of values to change are shown below.
 
-#### Sample Configuration file for AWS
+<details>
+    <summary> Sample Configuration file for AWS </summary>
 
 ```yaml
 # ------- Global settings -------
@@ -101,8 +109,11 @@ aws_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
 
 ```
+</details>
+<br>
+<details>
+    <summary> Sample Configuration file for Azure </summary>
 
-#### Sample Configuration file for Azure
 
 ```yaml
 # ------- Global settings -------
@@ -114,8 +125,11 @@ azure_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e
 # ------- CDP Environment Deployment -------
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
 ```
+</details>
+<br>
+<details>
+    <summary> Sample Configuration file for GCP </summary>
 
-#### Sample Configuration file for GCP
 
 ```yaml
 # ------- Global settings -------
@@ -129,6 +143,7 @@ gcp_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g
 # ------- CDP Environment Deployment -------
 deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
 ```
+</details>
 
 #### SSH keys
 
