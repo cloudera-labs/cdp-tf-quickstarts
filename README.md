@@ -26,7 +26,7 @@ To use the module provided here, you will need the following prerequisites:
 * Terraform can be installed by following the instructions at https://developer.hashicorp.com/terraform/downloads
 
 <details>
-    <summary> Notes on AWS authentication </summary>
+    <summary><strong> Expand for notes on AWS authentication </strong></summary>
 
 * Details of the different methods to authenticate with AWS are available in the [aws Terraform provider docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration).
 
@@ -38,7 +38,7 @@ To use the module provided here, you will need the following prerequisites:
 </details>
 <br>
 <details>
-    <summary> Notes on Azure authentication </summary>
+    <summary><strong> Expand for notes on Azure authentication </strong></summary>
 
 
 * Where you have more than one Azure Subscription the id to use can be passed via the the `ARM_SUBSCRIPTION_ID` environment variable.
@@ -63,7 +63,7 @@ export ARM_SUBSCRIPTION_ID="<sp_subscription_id>"
 </details>
 <br>
 <details>
-    <summary> Notes on GCP authentication </summary>
+    <summary><strong> Expand for notes on GCP authentication </strong></summary>
 
 * The [Getting Started Docs for Google Terraform Provider](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started#adding-credentials) gives details on the two recommended ways to authenticate with the GCP API.
   1. The Google Cloud SDK (`gcloud`) can be installed and a User Application Default Credentials ("ADCs") can be created by running the command `gcloud auth application-default login`
@@ -96,7 +96,7 @@ The `terraform.tfvars.template` file in the required cloud provider directory co
 Sample contents with indicators of values to change are shown below.
 
 <details>
-    <summary> Sample Configuration file for AWS </summary>
+    <summary><strong> Expand for AWS configuration file</strong></summary>
 
 ```yaml
 # ------- Global settings -------
@@ -112,7 +112,7 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 </details>
 <br>
 <details>
-    <summary> Sample Configuration file for Azure </summary>
+    <summary><strong> Expand for Azure configuration file</strong></summary>
 
 
 ```yaml
@@ -128,7 +128,7 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 </details>
 <br>
 <details>
-    <summary> Sample Configuration file for GCP </summary>
+    <summary><strong> Expand for GCP configuration file</strong></summary>
 
 
 ```yaml
@@ -188,6 +188,8 @@ terraform init
 terraform apply
 ```
 
+> ⏱️ Typically, deployment will take about 60 minutes. 
+
 Once the creation of the CDP environment and data lake starts, you can follow the deployment process on the CDP Management Console from your browser in ( [https://cdp.cloudera.com/](https://cdp.cloudera.com/) ). After it completes, you can add CDP  [Data Hubs and Data Services](https://docs.cloudera.com/cdp-public-cloud/cloud/overview/topics/cdp-services.html) to your newly deployed environment from the Management Console UI or using the CLI.
 
 ### Clean up the CDP environment and infrastructure
@@ -197,3 +199,4 @@ If you no longer need the infrastructure and CDP environment that’s provisione
 ```bash
 terraform destroy
 ```
+> ⏱️ Cleanup of the deployment will take about 20 minutes. 
