@@ -49,7 +49,7 @@ unzip -o terraform.zip -d ${HOME}
 rm terraform.zip
 
 # Checkout CDP Quickstart Repository
-git clone --branch v0.7.2 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
+git clone --branch v0.8.2 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
 cd cdp-tf-quickstarts/aws
 
 # Install CDP CLI and Log In
