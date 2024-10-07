@@ -24,6 +24,7 @@ export TF_VAR_ingress_extra_cidrs_and_ports="${7:-"{ cidrs = [\"0.0.0.0/0\"], po
 export TF_VAR_env_tags='{"deploy_tool": "express-tf", "env_prefix": "'"$2"'"}'
 export TF_VAR_environment_async_creation="true"
 export TF_VAR_datalake_async_creation="true"
+export TF_VAR_datalake_scale="LIGHT_DUTY"
 
 # Save TF variables to file
 output_file="variables.sh"
@@ -38,10 +39,22 @@ export TF_VAR_env_tags="${TF_VAR_env_tags}"
 export TF_VAR_environment_async_creation="${TF_VAR_environment_async_creation}"
 export TF_VAR_datalake_async_creation="${TF_VAR_datalake_async_creation}"
 export TF_VAR_ingress_extra_cidrs_and_ports="${TF_VAR_ingress_extra_cidrs_and_ports}"
+export TF_VAR_datalake_scale="${TF_VAR_datalake_scale}"
+EOF
+
+destroy_file="destroy.sh"
+
+cat <<EOF > $destroy_file
+cd cdp-tf-quickstarts/gcp
+
+source variables.sh
+
+terraform destroy -auto-approve
 EOF
 
 # Make the file executable
 chmod +x $output_file
+chmod +x $destroy_file
 
 # Checkout CDP Quickstart Repository
 git clone --branch v0.7.2 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
