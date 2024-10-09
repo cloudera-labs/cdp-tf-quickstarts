@@ -105,6 +105,14 @@ variable "datalake_recipes" {
   default = null
 }
 
+variable "azure_subscription_id" {
+  type = string
+
+  description = "The subscription where the environment should be deployed to"
+
+  default = null
+}
+
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
   type = object({

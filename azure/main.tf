@@ -92,7 +92,7 @@ module "cdp_deploy" {
   datalake_async_creation    = var.datalake_async_creation
 
   # From pre-reqs module output
-  azure_subscription_id = module.cdp_azure_prereqs.azure_subscription_id
+  azure_subscription_id = var.azure_subscription_id == null ? module.cdp_azure_prereqs.azure_subscription_id : var.azure_subscription_id
   azure_tenant_id       = module.cdp_azure_prereqs.azure_tenant_id
 
   azure_resource_group_name      = module.cdp_azure_prereqs.azure_resource_group_name
