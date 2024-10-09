@@ -20,10 +20,11 @@ export TF_VAR_env_prefix="${3:-""}"
 export ACCOUNT_ID="${4:-""}"
 export CDP_REGION="${5:-"us-west-1"}"
 export TF_VAR_deployment_template="${6:-"semi-private"}"
-export TF_VAR_ingress_extra_cidrs_and_ports="${7:-"{ cidrs = [\"0.0.0.0/0\"], ports = [443, 22] }"}"
+export TF_VAR_ingress_extra_cidrs_and_ports=${6:-"{ cidrs = [\"0.0.0.0/0\"], ports = [443, 22] }"}
 export TF_VAR_env_tags='{"deploy_tool": "express-tf", "env_prefix": "'"$2"'"}'
 export TF_VAR_environment_async_creation="true"
 export TF_VAR_datalake_async_creation="true"
+export TF_VAR_datalake_scale="LIGHT_DUTY"
 
 # Save TF variables to file
 output_file="variables.sh"
@@ -31,28 +32,43 @@ output_file="variables.sh"
 cat <<EOF > $output_file
 export TF_VAR_gcp_project="${TF_VAR_gcp_project}"
 export TF_VAR_gcp_region="${TF_VAR_gcp_region}"
-export TF_VAR_env_prefix="${TF_VAR_env_prefix}"
+export TF_VAR_env_prefix='${TF_VAR_env_prefix}'
 export ACCOUNT_ID="${ACCOUNT_ID}"
 export TF_VAR_deployment_template="${TF_VAR_deployment_template}"
 export TF_VAR_env_tags="${TF_VAR_env_tags}"
 export TF_VAR_environment_async_creation="${TF_VAR_environment_async_creation}"
 export TF_VAR_datalake_async_creation="${TF_VAR_datalake_async_creation}"
-export TF_VAR_ingress_extra_cidrs_and_ports="${TF_VAR_ingress_extra_cidrs_and_ports}"
+export TF_VAR_ingress_extra_cidrs_and_ports='${TF_VAR_ingress_extra_cidrs_and_ports}'
+export TF_VAR_datalake_scale="${TF_VAR_datalake_scale}"
+EOF
+
+destroy_file="destroy.sh"
+
+cat <<EOF > $destroy_file
+cd cdp-tf-quickstarts/gcp
+
+source ${HOME}/variables.sh
+
+${HOME}/terraform destroy -auto-approve
 EOF
 
 # Make the file executable
 chmod +x $output_file
+chmod +x $destroy_file
 
 # Checkout CDP Quickstart Repository
-git clone --branch v0.7.2 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
+git clone --branch v0.8.3 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
 cd cdp-tf-quickstarts/gcp
 
 # Install CDP CLI and Log In
 pip install cdpcli
 
 config_file="${HOME}/.cdp/config"
-region_config="cdp_region = ${CDP_REGION}"
-echo "$region_config" >> "$config_file"
+mkdir -p "$(dirname "$config_file")"
+cat <<EOF > $config_file
+[default]
+cdp_region = ${CDP_REGION}
+EOF
 
 cdp login --account-id "${ACCOUNT_ID}" --use-device-code
 
