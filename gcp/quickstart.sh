@@ -57,7 +57,7 @@ chmod +x $output_file
 chmod +x $destroy_file
 
 # Checkout CDP Quickstart Repository
-git clone --branch v0.8.2 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
+git clone --branch v0.8.3 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
 cd cdp-tf-quickstarts/gcp
 
 # Install CDP CLI and Log In
