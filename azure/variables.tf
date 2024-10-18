@@ -168,3 +168,10 @@ variable "cdp_gw_subnet_names" {
 
   default = null
 }
+
+variable "cdp_delegated_subnet_names" {
+  type        = list(any)
+  description = "List of subnet names delegated for Flexible Servers. Required if create_vnet is false."
+
+  default = null
+}

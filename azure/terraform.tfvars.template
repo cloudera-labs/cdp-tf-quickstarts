@@ -35,7 +35,9 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 
 # public_key_text = "<ENTER_VALUE>" # Set this to specifiy an existing SSH public key text, e.g. ssh-rsa AAA....
 
+
 # If required use the variable below for any additional CIDRs to add the Azure Security Groups
+# When commented UI and SSH access will be allowed only from the public IP of executing host.
 # ingress_extra_cidrs_and_ports = {
 # cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
 # ports = [443, 22]
@@ -50,3 +52,4 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # cdp_vnet_name="<ENTER_EXISTING_VNET_NAME>" # Name of pre-existing VNet for CDP environment. Required if create_vnet is false
 # cdp_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>","<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP resources. Required if create_vnet is false
 # cdp_gw_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP Gateway. Required if create_vnet is false. NOTE: Can be an empty list depending on deployment_template.
+# cdp_delegated_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names delegated for Postgres flexible servers. NOTE: Can be an empty list depending on deployment_template.

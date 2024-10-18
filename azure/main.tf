@@ -43,6 +43,7 @@ terraform {
 }
 
 provider "azurerm" {
+  subscription_id = var.azure_subscription_id
   features {
     resource_group {
       prevent_deletion_if_contains_resources = false
@@ -64,11 +65,12 @@ module "cdp_azure_prereqs" {
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
 
   # Inputs for BYO-VNet
-  create_vnet            = var.create_vnet
-  cdp_resourcegroup_name = var.cdp_resourcegroup_name
-  cdp_vnet_name          = var.cdp_vnet_name
-  cdp_subnet_names       = var.cdp_subnet_names
-  cdp_gw_subnet_names    = var.cdp_gw_subnet_names
+  create_vnet                = var.create_vnet
+  cdp_resourcegroup_name     = var.cdp_resourcegroup_name
+  cdp_vnet_name              = var.cdp_vnet_name
+  cdp_subnet_names           = var.cdp_subnet_names
+  cdp_gw_subnet_names        = var.cdp_gw_subnet_names
+  cdp_delegated_subnet_names = var.cdp_delegated_subnet_names
 
   # Tags to apply resources (omitted by default)
   env_tags = var.env_tags

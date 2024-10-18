@@ -139,9 +139,9 @@ To use an existing SSH key, set the keypair name (for AWS) or public key text (f
 
 ### Access to UI and API endpoints
 
-By default inbound access to the UI and API endpoints of your deployment will be allowed from the public IP of executing host.
+The optional variable `ingress_extra_cidrs_and_ports` in the `terraform.tvars` file defines the list of client IP allowed to access - via ssh and https - the UI and API endpoints of your deployment.
 
-To add additional CIDRs or IP ranges, set the optional `ingress_extra_cidrs_and_ports` variable in the `terraform.tvars` file.
+When commented, this variable defaults to current public IP of the terraform client. In case this IP is a leased one - hence that might change overtime - you can uncomment this variable and set additional CIDRs or IP ranges via the `ingress_extra_cidrs_and_ports` variable.
 
 ### Notes on AWS authentication
 

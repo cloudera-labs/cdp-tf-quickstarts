@@ -39,6 +39,7 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # public_key_text = "<ENTER_VALUE>" # Set this to specifiy an existing SSH public key text, e.g. ssh-rsa AAA....
 
 # If required use the variable below for any additional CIDRs to add the GCP Security Groups
+# When commented UI and SSH access will be allowed only from the public IP of executing host.
 # ingress_extra_cidrs_and_ports = {
 # cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
 # ports = [443, 22]

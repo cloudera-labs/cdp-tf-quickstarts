@@ -35,6 +35,7 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # aws_key_pair = "<ENTER_VALUE>" # Set this to specify the name of a pre-existing AWS keypair, e.g. my-keypair
 
 # If required use the variable below for any additional CIDRs to add the the AWS Security Groups
+# When commented UI and SSH access will be allowed only from the public IP of executing host.
 # ingress_extra_cidrs_and_ports = {
 # cidrs = ["<ENTER_IP_VALUE>/32", "<ENTER_IP_VALUE>/32"],
 # ports = [443, 22]
