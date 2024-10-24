@@ -59,4 +59,5 @@ jobs:
         for csp in aws azure gcp
         do
           aws s3 cp ${csp}/quickstart.sh s3://${{ vars.S3_BUCKET }}/${csp}/${{ env.S3_FOLDER }}/
+          aws s3 cp ${csp}/destroy.sh s3://${{ vars.S3_BUCKET }}/${csp}/${{ env.S3_FOLDER }}/
         done
