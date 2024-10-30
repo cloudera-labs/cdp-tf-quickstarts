@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+export CDP_QUICKSTART_VERSON="v0.8.5"
+
 export TF_VAR_azure_region="${1:-""}"
 export TF_VAR_env_prefix="${2:-""}"
 export ACCOUNT_ID="${3:-""}"
@@ -26,10 +28,11 @@ export TF_VAR_datalake_async_creation="true"
 export TF_VAR_datalake_scale="LIGHT_DUTY"
 export TF_VAR_azure_subscription_id="$(az account show --query id --output tsv)"
 
-# Save TF variables to file
-output_file="variables.sh"
+prepare_destroy_script() {
+    # Save TF variables to file
+    output_file="variables.sh"
 
-cat <<EOF > $output_file
+    cat <<EOF > $output_file
 export TF_VAR_azure_region="${TF_VAR_azure_region}"
 export TF_VAR_env_prefix="${TF_VAR_env_prefix}"
 export ACCOUNT_ID="${ACCOUNT_ID}"
@@ -42,37 +45,137 @@ export TF_VAR_datalake_scale="${TF_VAR_datalake_scale}"
 export TF_VAR_azure_subscription_id="${TF_VAR_azure_subscription_id}"
 EOF
 
-destroy_file="destroy.sh"
+    destroy_file="${HOME}/destroy.sh"
 
-cat <<EOF > $destroy_file
-cd cdp-tf-quickstarts/azure
+    curl -S https://quickstart-dev.cloudera-labs.com/aws/latest/destroy.sh -o ${destroy_file}
+    exit_code=$?
+    if [ $exit_code -ne 0 ]; then
+        return $exit_code
+    fi
 
-source ${HOME}/variables.sh
+    # Make the file executable
+    chmod +x $output_file
+    chmod +x $destroy_file
 
-${HOME}/terraform destroy -auto-approve
-EOF
+    return $exit_code
+}
 
-# Make the file executable
-chmod +x $output_file
-chmod +x $destroy_file
+checkout_cdp_tf_qs() {
+    rm -rf ${HOME}/cdp-tf-quickstarts
 
-# Checkout CDP Quickstart Repository
-git clone --branch v0.8.3 https://github.com/cloudera-labs/cdp-tf-quickstarts.git
-cd cdp-tf-quickstarts/azure
+    # Checkout CDP Quickstart Repository
+    git clone --branch ${CDP_QUICKSTART_VERSON} https://github.com/cloudera-labs/cdp-tf-quickstarts.git ${HOME}/cdp-tf-quickstarts
+    exit_code=$?
 
-# Install CDP CLI and Log In
-pip install cdpcli
+    return $exit_code
+}
 
-config_file="${HOME}/.cdp/config"
-mkdir -p "$(dirname "$config_file")"
-cat <<EOF > $config_file
+configure_cdpcli() {
+    pip install cdpcli
+    exit_code=$?
+    if [ $exit_code -ne 0 ]; then
+        return $exit_code
+    fi
+
+    rm -rf "${HOME}/.cdp"
+    config_file="${HOME}/.cdp/config"
+    mkdir -p "$(dirname "$config_file")"
+    cat <<EOF > $config_file
 [default]
 cdp_region = ${CDP_REGION}
 EOF
 
-cdp login --account-id "${ACCOUNT_ID}" --use-device-code
+    return $exit_code
+}
 
-# Apply Terraform Quickstart Module
-terraform init
+cdp_login() {
+    cdp login --account-id "${ACCOUNT_ID}" --use-device-code
+    exit_code=$?
 
-terraform apply -auto-approve
+    return $exit_code
+}
+
+terraform_apply() {
+    cd ${HOME}/cdp-tf-quickstarts/azure
+    terraform init
+
+    terraform apply -auto-approve
+    exit_code=$?
+
+    return $exit_code
+}
+
+if [ -t 1 ] && [ -z "${NO_COLOR:-}" ] && [ "${TERM:-}" != "dumb" ]; then
+    COLOR_RESET='[0m'
+    COLOR_FG_RED='[31m'
+    COLOR_FG_GREEN='[32m'
+else
+    COLOR_RESET=''
+    COLOR_FG_RED=''
+    COLOR_FG_GREEN=''
+fi
+
+start() {
+  local step=0
+  local total_steps="${#CMDS[@]}"
+
+  tput civis
+
+  while [ "$step" -lt "$total_steps" ]; do
+    # Format step number for display
+    local step_num=$((step + 1))
+
+    echo -ne "\\r[ * ] Step [$step_num/$total_steps]: ${STEPS[$step]} ..."
+    # Check if it's a function or a command
+    if declare -F "${CMDS[$step]}" > /dev/null; then
+      # If it's a function, call the function directly
+      "${CMDS[$step]}"
+    else
+      # Otherwise, treat it as a shell command
+      eval "${CMDS[$step]}"
+    fi
+
+    exit_code=$?
+
+    # Print success (✔) or failure (✖) based on the exit code
+    if [ $exit_code -eq 0 ]; then
+      echo -ne "\\r[ ${COLOR_FG_GREEN}✔${COLOR_RESET} ] Step [$step_num/$total_steps]: ${STEPS[$step]}\\n"
+    else
+      echo -ne "\\r[ ${COLOR_FG_RED}✖${COLOR_RESET} ] Step [$step_num/$total_steps]: ${STEPS[$step]} (failed with exit code $exit_code)\\n"
+      printf "%sERROR: Step failed, check '${CMD_OUTPUTS}' for more details.%s\n" $COLOR_FG_RED $COLOR_RESET
+      tput cnorm  # Restore cursor before exiting
+      exit $exit_code  # Exit with the command's exit code
+    fi
+
+    # Move to the next command or function
+    step=$((step + 1))
+  done
+
+  tput cnorm
+}
+
+declare -rx CMD_OUTPUTS="${HOME}/quickstart.out"
+
+declare -rx CMDS=(
+    "configure_cdpcli >> \"${CMD_OUTPUTS}\" 2>&1"
+    "cdp_login 2>> \"${CMD_OUTPUTS}\""
+    "checkout_cdp_tf_qs >> \"${CMD_OUTPUTS}\" 2>&1"
+    "prepare_destroy_script >> \"${CMD_OUTPUTS}\" 2>&1"
+    "terraform_apply >> \"${CMD_OUTPUTS}\" 2>&1"
+)
+
+declare -rx STEPS=(
+    'configuring CDP CLI',
+    'creating CDP session',
+    'checking out the CDP Terraform Quickstart project',
+    'backing up quickstart configuration',
+    'deploying quickstart environment'
+)
+
+main() {
+    printf "%sDeploying express onboarding environment\n" $COLOR_RESET
+
+    start   
+}
+
+main
