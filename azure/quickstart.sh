@@ -47,7 +47,7 @@ EOF
 
     destroy_file="${HOME}/destroy.sh"
 
-    curl -S https://quickstart-dev.cloudera-labs.com/aws/latest/destroy.sh -o ${destroy_file}
+    curl -S https://quickstart.cloudera-labs.com/azure/latest/destroy.sh -o ${destroy_file}
     exit_code=$?
     if [ $exit_code -ne 0 ]; then
         return $exit_code
