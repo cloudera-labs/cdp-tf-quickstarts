@@ -45,6 +45,9 @@ Change to required cloud provider directory and create a `terraform.tfvars` file
 
 Reference the `terraform.tfvars.template` in each cloud provider directory and the sample contents with indicators of values to change shown below.
 
+> [!IMPORTANT]
+> Ensure the value of the `env_prefix` variable is 12 characters or less in length and consist only of lowercase letters, numbers, and hyphens.
+
 ```bash
 # Change into cloud provider directory, e.g. for aws
 cd aws
