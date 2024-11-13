@@ -45,7 +45,8 @@ provider "google" {
 
 
 module "cdp_gcp_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs?ref=v0.8.3"
+  # source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs?ref=v0.8.4"
+  source = "git::https://github.com/jimright/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs?ref=feature/variable_validations"
 
   env_prefix = var.env_prefix
   gcp_region = var.gcp_region
@@ -62,7 +63,8 @@ module "cdp_gcp_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.8.3"
+  # source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.8.4"
+  source = "git::https://github.com/jimright/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=feature/variable_validations"
 
   env_prefix          = var.env_prefix
   infra_type          = "gcp"
