@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export CDP_QUICKSTART_VERSON="v0.8.5"
+export CDP_QUICKSTART_VERSON="v0.8.6"
 
 export TF_VAR_aws_region="${1:-""}"
 export TF_VAR_env_prefix="${2:-""}"
