@@ -21,6 +21,15 @@ variable "aws_region" {
 variable "env_prefix" {
   type        = string
   description = "Shorthand name for the environment. Used in resource descriptions"
+
+  validation {
+    condition     = length(var.env_prefix) <= 12
+    error_message = "The length of env_prefix must be 12 characters or less."
+  }
+  validation {
+    condition     = (var.env_prefix == null ? true : can(regex("^[a-z0-9-]{1,12}$", var.env_prefix)))
+    error_message = "env_prefix can consist only of lowercase letters, numbers, and hyphens (-)."
+  }
 }
 
 variable "aws_key_pair" {
@@ -43,6 +52,11 @@ variable "deployment_template" {
   type = string
 
   description = "Deployment Pattern to use for Cloud resources and CDP"
+
+  validation {
+    condition     = contains(["public", "semi-private", "private"], var.deployment_template)
+    error_message = "Valid values for var: deployment_template are (public, semi-private, private)."
+  }
 }
 
 variable "environment_async_creation" {
