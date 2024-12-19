@@ -86,6 +86,7 @@ module "cdp_deploy" {
   public_key_text     = local.public_key_text
   deployment_template = var.deployment_template
   datalake_scale      = var.datalake_scale
+  datalake_version    = var.datalake_version
   enable_raz          = var.enable_raz
   datalake_recipes    = var.datalake_recipes
   freeipa_recipes     = var.freeipa_recipes
