@@ -28,6 +28,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
  
+      # Setup terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3 
+                
       - name: Validate with terraform fmt
         uses: pre-commit/action@v3.0.0
         with:
