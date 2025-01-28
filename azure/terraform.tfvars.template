@@ -33,7 +33,7 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # ------- Optional inputs for SSH key and Network Access Settings -------
 # **NOTE: Uncomment below settings if required
 
-# public_key_text = "<ENTER_VALUE>" # Set this to specifiy an existing SSH public key text, e.g. ssh-rsa AAA....
+# public_key_text = "<ENTER_VALUE>" # Set this to specify an existing SSH public key text, e.g. ssh-rsa AAA
 
 
 # If required use the variable below for any additional CIDRs to add the Azure Security Groups
