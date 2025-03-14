@@ -166,6 +166,8 @@ variable "cdp_groups" {
       ])
     error_message = "CDP group names can consist only of letters, numbers, dots (.), hyphens (-) and underscores (_)."
   }
+
+  default = null
 }
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
