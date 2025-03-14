@@ -152,27 +152,27 @@ variable "azure_subscription_id" {
 
 variable "cdp_groups" {
   type = set(object({
-    name = string
-    create_group = bool
+    name                          = string
+    create_group                  = bool
     sync_membership_on_user_login = optional(bool)
-    add_id_broker_mappings = bool
-  })
+    add_id_broker_mappings        = bool
+    })
   )
-  
+
   description = "List of CDP Groups to be added to the IDBroker mappings of the environment. If create_group is set to true then the group will be created."
 
-    validation {
-    condition     = alltrue([
+  validation {
+    condition = alltrue([
       for grp in var.cdp_groups :
-        length(grp.name) >= 1 && length(grp.name) <= 64
-      ])
+      length(grp.name) >= 1 && length(grp.name) <= 64
+    ])
     error_message = "The length of all CDP group names must be 64 characters or less."
   }
-    validation {
-    condition     = alltrue([
+  validation {
+    condition = alltrue([
       for grp in var.cdp_groups :
-        can(regex("^[a-zA-Z0-9\\-\\_\\.]{1,90}$", grp.name))
-      ])
+      can(regex("^[a-zA-Z0-9\\-\\_\\.]{1,90}$", grp.name))
+    ])
     error_message = "CDP group names can consist only of letters, numbers, dots (.), hyphens (-) and underscores (_)."
   }
 

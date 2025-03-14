@@ -189,13 +189,13 @@ locals {
   # flag to determine if keypair should be created
   cdp_groups = var.cdp_groups != null ? var.cdp_groups : [
     {
-      name = "${var.env_prefix}-gc-cdp-admin-group"
-      create_group = true
+      name                   = "${var.env_prefix}-gc-cdp-admin-group"
+      create_group           = true
       add_id_broker_mappings = true
     },
     {
-      name = "${var.env_prefix}-gc-cdp-user-group"
-      create_group = true
+      name                   = "${var.env_prefix}-gc-cdp-user-group"
+      create_group           = true
       add_id_broker_mappings = true
     }
   ]
