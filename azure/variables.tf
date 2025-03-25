@@ -1,4 +1,4 @@
-# Copyright 2024 Cloudera, Inc. All Rights Reserved.
+# Copyright 2025 Cloudera, Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -162,17 +162,17 @@ variable "cdp_groups" {
   description = "List of CDP Groups to be added to the IDBroker mappings of the environment. If create_group is set to true then the group will be created."
 
   validation {
-    condition = alltrue([
+    condition = (var.cdp_groups == null ? true : alltrue([
       for grp in var.cdp_groups :
       length(grp.name) >= 1 && length(grp.name) <= 64
-    ])
+    ]))
     error_message = "The length of all CDP group names must be 64 characters or less."
   }
   validation {
-    condition = alltrue([
+    condition = (var.cdp_groups == null ? true : alltrue([
       for grp in var.cdp_groups :
       can(regex("^[a-zA-Z0-9\\-\\_\\.]{1,90}$", grp.name))
-    ])
+    ]))
     error_message = "CDP group names can consist only of letters, numbers, dots (.), hyphens (-) and underscores (_)."
   }
 

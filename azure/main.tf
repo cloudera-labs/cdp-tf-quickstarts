@@ -1,4 +1,4 @@
-# Copyright 2024 Cloudera, Inc. All Rights Reserved.
+# Copyright 2025 Cloudera, Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ provider "azuread" {
 }
 
 module "cdp_azure_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.9.0"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.10.1"
 
   env_prefix   = var.env_prefix
   azure_region = var.azure_region
@@ -78,7 +78,7 @@ module "cdp_azure_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.9.0"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.10.1"
 
   env_prefix          = var.env_prefix
   infra_type          = "azure"
@@ -187,7 +187,7 @@ data "http" "my_ip" {
 # ------- Create default admin and user CDP group if input cdp_group variable is not specified
 locals {
   # flag to determine if keypair should be created
-  cdp_groups = var.cdp_groups != null ? var.cdp_groups : [
+  cdp_groups = var.cdp_groups != null ? var.cdp_groups : toset([
     {
       name                   = "${var.env_prefix}-gc-cdp-admin-group"
       create_group           = true
@@ -198,5 +198,5 @@ locals {
       create_group           = true
       add_id_broker_mappings = true
     }
-  ]
+  ])
 }
