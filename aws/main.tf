@@ -1,4 +1,4 @@
-# Copyright 2024 Cloudera, Inc. All Rights Reserved.
+# Copyright 2025 Cloudera, Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ provider "aws" {
 }
 
 module "cdp_aws_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.9.0"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.10.1"
 
   env_prefix = var.env_prefix
   aws_region = var.aws_region
@@ -90,7 +90,7 @@ module "cdp_aws_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.9.0"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.10.1"
 
   env_prefix          = var.env_prefix
   infra_type          = "aws"
@@ -102,6 +102,7 @@ module "cdp_deploy" {
   enable_raz          = var.enable_raz
   datalake_recipes    = var.datalake_recipes
   freeipa_recipes     = var.freeipa_recipes
+  cdp_groups          = local.cdp_groups
 
   environment_async_creation = var.environment_async_creation
   datalake_async_creation    = var.datalake_async_creation
@@ -196,4 +197,21 @@ data "http" "my_ip" {
   count = local.lookup_ip ? 1 : 0
 
   url = "https://ipv4.icanhazip.com"
+}
+
+# ------- Create default admin and user CDP group if input cdp_group variable is not specified
+locals {
+  # flag to determine if keypair should be created
+  cdp_groups = var.cdp_groups != null ? var.cdp_groups : toset([
+    {
+      name                   = "${var.env_prefix}-gc-cdp-admin-group"
+      create_group           = true
+      add_id_broker_mappings = true
+    },
+    {
+      name                   = "${var.env_prefix}-gc-cdp-user-group"
+      create_group           = true
+      add_id_broker_mappings = true
+    }
+  ])
 }
