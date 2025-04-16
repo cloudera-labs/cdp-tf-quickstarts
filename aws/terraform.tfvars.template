@@ -58,6 +58,6 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # Specify the datalake image to use, e.g. 
 # datalake_version = null
 # datalake_image = {
-#     id  =  "c414fb21-e0f1-4a4c-b223-fdasdfsag243"
+#     id  =  "<ENTER_DATALAKE_IMAGE_ID>"
 # }
   
