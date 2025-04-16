@@ -81,6 +81,7 @@ module "cdp_deploy" {
   source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.10.2"
 
   env_prefix          = var.env_prefix
+  datalake_image      = var.datalake_image
   infra_type          = "azure"
   region              = var.azure_region
   public_key_text     = local.public_key_text

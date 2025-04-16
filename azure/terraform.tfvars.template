@@ -53,3 +53,12 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # cdp_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>","<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP resources. Required if create_vnet is false
 # cdp_gw_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP Gateway. Required if create_vnet is false. NOTE: Can be an empty list depending on deployment_template.
 # cdp_delegated_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names delegated for Postgres flexible servers. NOTE: Can be an empty list depending on deployment_template.
+
+
+# ------- Optional inputs for Datalake Image -------
+# Specify the datalake image to use, e.g. 
+# datalake_version = null
+# datalake_image = {
+#     id  =  "c414fb21-e0f1-4a4c-b223-fdasdfsag243"
+# }
+  

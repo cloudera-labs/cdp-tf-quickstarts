@@ -52,3 +52,12 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 
 # ------- Optional inputs for Control Plane Connectivity in fully private environment -------
 # private_network_extensions=true # Set to false if external networking connectivity to CDP Control Plane exists
+
+
+# ------- Optional inputs for Datalake Image -------
+# Specify the datalake image to use, e.g. 
+# datalake_version = null
+# datalake_image = {
+#     id  =  "c414fb21-e0f1-4a4c-b223-fdasdfsag243"
+# }
+  
