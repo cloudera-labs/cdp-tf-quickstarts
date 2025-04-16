@@ -51,3 +51,12 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # create_vpc=true # Set to false to use pre-existing VPC
 # cdp_vpc_name="<ENTER_EXISTING_VPC_NAME>" # Name of pre-existing VNet for CDP environment. Required if create_vpc is false
 # cdp_subnet_names=["<ENTER_EXISTING_SUBNET_NAME>","<ENTER_EXISTING_SUBNET_NAME>"] # List of pre-existing subnet names for CDP resources. Required if create_vpc is false
+
+
+# ------- Optional inputs for Datalake Image -------
+# Specify the datalake image to use, e.g. 
+# datalake_version = null
+# datalake_image = {
+#     id  =  "c414fb21-e0f1-4a4c-b223-fdasdfsag243"
+# }
+  
