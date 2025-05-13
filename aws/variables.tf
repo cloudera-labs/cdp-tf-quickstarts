@@ -226,6 +226,6 @@ variable "datalake_image" {
     os           = optional(string)
   })
   description = "The image to use for the datalake. Can only be used when 'datalake_version' is null."
-  default = null
+  default     = null
 }
 
