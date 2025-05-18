@@ -233,3 +233,13 @@ variable "cdp_delegated_subnet_names" {
 
   default = null
 }
+
+variable "datalake_image" {
+  type = object({
+    id           = optional(string)
+    catalog_name = optional(string)
+    os           = optional(string)
+  })
+  description = "The image to use for the datalake. Can only be used when 'datalake_version' is null."
+  default     = null
+}
