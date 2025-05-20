@@ -33,16 +33,10 @@
 
 | Name | Type |
 |------|------|
-| [aws_iam_policy.cml_backup_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_policy.cml_restore_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
-| [aws_iam_role_policy_attachment.cdp_xaccount_role_cml_backup_attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.cdp_xaccount_role_cml_restore_attach](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_key_pair.cdp_keypair](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair) | resource |
 | [local_sensitive_file.pem_file](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/sensitive_file) | resource |
 | [tls_private_key.cdp_private_key](https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key) | resource |
 | [cdp_environments_aws_credential_prerequisites.cdp_prereqs](https://registry.terraform.io/providers/cloudera/cdp/0.9.0/docs/data-sources/environments_aws_credential_prerequisites) | data source |
-| [http_http.cml_backup_policy_doc](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
-| [http_http.cml_restore_policy_doc](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 | [http_http.my_ip](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | data source |
 
 ## Inputs
@@ -57,10 +51,6 @@
 | <a name="input_cdp_private_subnet_ids"></a> [cdp\_private\_subnet\_ids](#input\_cdp\_private\_subnet\_ids) | List of private subnet ids. Required if create\_vpc is false. | `list(any)` | `null` | no |
 | <a name="input_cdp_public_subnet_ids"></a> [cdp\_public\_subnet\_ids](#input\_cdp\_public\_subnet\_ids) | List of public subnet ids. Required if create\_vpc is false. | `list(any)` | `null` | no |
 | <a name="input_cdp_vpc_id"></a> [cdp\_vpc\_id](#input\_cdp\_vpc\_id) | VPC ID for CDP environment. Required if create\_vpc is false. | `string` | `null` | no |
-| <a name="input_cml_backup_policy_doc"></a> [cml\_backup\_policy\_doc](#input\_cml\_backup\_policy\_doc) | Contents of CDP CML Backup Policy Document. If not specified document is downloaded from Cloudera Document repository | `string` | `null` | no |
-| <a name="input_cml_backup_policy_name"></a> [cml\_backup\_policy\_name](#input\_cml\_backup\_policy\_name) | CDP CML Backup Policy name | `string` | `"jecml-cml-backup-policy"` | no |
-| <a name="input_cml_restore_policy_doc"></a> [cml\_restore\_policy\_doc](#input\_cml\_restore\_policy\_doc) | Contents of CDP CML Restore Policy Document. If not specified document is downloaded from Cloudera Document repository | `string` | `null` | no |
-| <a name="input_cml_restore_policy_name"></a> [cml\_restore\_policy\_name](#input\_cml\_restore\_policy\_name) | CDP CML Restore Policy name | `string` | `"jecml-cml-restore-policy"` | no |
 | <a name="input_create_vpc"></a> [create\_vpc](#input\_create\_vpc) | Flag to specify if the VPC should be created | `bool` | `true` | no |
 | <a name="input_create_vpc_endpoints"></a> [create\_vpc\_endpoints](#input\_create\_vpc\_endpoints) | Flag to specify if VPC Endpoints should be created | `bool` | `true` | no |
 | <a name="input_datalake_async_creation"></a> [datalake\_async\_creation](#input\_datalake\_async\_creation) | Flag to specify if Terraform should wait for CDP datalake resource creation/deletion | `bool` | `false` | no |
