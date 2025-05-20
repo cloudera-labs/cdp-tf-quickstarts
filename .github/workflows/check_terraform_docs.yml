@@ -1,0 +1,63 @@
+# Copyright 2025 Cloudera, Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Check Terraform root module documentation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+env:
+  TERRAFORM_DOCS_VERSION: v0.20.0
+  MODULES: "aws,azure,gcp"
+
+jobs:
+  check-tf-fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+ 
+      - name: Print list of modules
+        run: |
+          echo "Terraform modules found: $MODULES"
+
+      - name: Install the terraform-docs utility
+        run: |
+          curl -sSLo ./terraform-docs.tar.gz https://terraform-docs.io/dl/${TERRAFORM_DOCS_VERSION}/terraform-docs-${TERRAFORM_DOCS_VERSION}-linux-amd64.tar.gz
+          tar -xzf terraform-docs.tar.gz
+          chmod +x terraform-docs
+          sudo mv terraform-docs /usr/local/bin/
+          
+      - name: Validate terraform module docs with terraform-docs
+        run: |
+          FAILED_MODULES=()
+          for module in $(echo "$MODULES" | tr ',' '\n'); do
+            echo "Checking $module"
+            if ! terraform-docs --output-check "$module"; then
+              echo "❌ terraform-docs check failed for $module"
+              FAILED_MODULES+=("$module")
+            else
+              echo "✅ $module passed terraform-docs check"
+            fi
+          done
+
+          if [ ${#FAILED_MODULES[@]} -ne 0 ]; then
+          echo "The following modules failed terraform-docs check:"
+          for failed in "${FAILED_MODULES[@]}"; do
+            echo " - $failed"
+          done
+          exit 1
+          fi          
