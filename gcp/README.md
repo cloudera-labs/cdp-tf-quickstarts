@@ -6,7 +6,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
-| <a name="requirement_cdp"></a> [cdp](#requirement\_cdp) | 0.9.0 |
+| <a name="requirement_cdp"></a> [cdp](#requirement\_cdp) | >= 0.6.1 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | >= 6.12.0 |
 | <a name="requirement_http"></a> [http](#requirement\_http) | ~> 3.2.1 |
 | <a name="requirement_local"></a> [local](#requirement\_local) | ~> 2.5.1 |

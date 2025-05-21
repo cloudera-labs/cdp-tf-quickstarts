@@ -17,7 +17,7 @@ terraform {
   required_providers {
     cdp = {
       source  = "cloudera/cdp"
-      version = "0.9.0"
+      version = ">= 0.6.1"
     }
     azurerm = {
       source  = "hashicorp/azurerm"
