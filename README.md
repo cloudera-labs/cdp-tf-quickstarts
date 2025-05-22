@@ -212,31 +212,31 @@ To expose an additional variable from any of the modules the process below can b
 
 1. Update the `variables.tf` file in the cloud specific root module with the variable declaration. Note that we give a default value of `null` to make this variable options.
 
-  ```hcl
-  variable "freeipa_instance_type" {
-    type = string
+    ```hcl
+    variable "freeipa_instance_type" {
+      type = string
 
-    description = "Instance Type to use for creating FreeIPA instances"
+      description = "Instance Type to use for creating FreeIPA instances"
 
-    default = null
-  }
-  ```
+      default = null
+    }
+    ```
 
 1. Update `main.tf` to pass the variable to the relevant module.
 
-  ```hcl
-  module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.10.2"
+    ```hcl
+    module "cdp_deploy" {
+    source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.10.2"
 
-  env_prefix          = var.
-  ... <other input variables>
+    env_prefix          = var.
+    ... <other input variables>
 
-  # New variable
-  freeipa_instance_type = var.freeipa_instance_type
-  ```
+    # New variable
+    freeipa_instance_type = var.freeipa_instance_type
+    ```
 
 1. To define a value for the variable, update `terraform.tfvars` and set as required.
 
-  ```terraform-vars
-  freeipa_instance_type = "m5.large"
-  ```
+    ```terraform-vars
+    freeipa_instance_type = "m5.large"
+    ```
