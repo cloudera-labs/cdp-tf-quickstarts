@@ -210,7 +210,7 @@ By default, only common and required variables from the [terraform-cdp-modules](
 
 To expose an additional variable from any of the modules the process below can be followed. We use the [`freeipa_instance_type`](https://github.com/cloudera-labs/terraform-cdp-modules/tree/main/modules/terraform-cdp-deploy#input_freeipa_instance_type) variable from the terraform-cdp-deploy as an example to illustrate the steps.
 
-1. Update the `variables.tf` file in the cloud specific root module with the variable declaration. Note that we give a default value of `null` to make this variable options.
+1. Update the `variables.tf` file in the cloud specific root module with the variable declaration. Note that we give a default value of `null` to make this variable optional.
 
     ```hcl
     variable "freeipa_instance_type" {
