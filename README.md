@@ -203,3 +203,40 @@ When commented, this variable defaults to current public IP of the terraform cli
   | Viewer                    |
 
 * The Google project Id can be specified via the `gcp_project` input variable, the `GOOGLE_PROJECT` environment variable or the default project set via the Cloud SDK. This is described in the [Google Provider Default Values Configuration](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference#provider-default-values-configuration) documentation.
+
+### Add variables from Terraform module in the Quickstart module
+
+By default, only common and required variables from the [terraform-cdp-modules](https://github.com/cloudera-labs/terraform-cdp-modules) are exposed in these quickstarts.
+
+To expose an additional variable from any of the modules the process below can be followed. We use the [`freeipa_instance_type`](https://github.com/cloudera-labs/terraform-cdp-modules/tree/main/modules/terraform-cdp-deploy#input_freeipa_instance_type) variable from the terraform-cdp-deploy as an example to illustrate the steps.
+
+1. Update the `variables.tf` file in the cloud specific root module with the variable declaration. Note that we give a default value of `null` to make this variable optional.
+
+    ```hcl
+    variable "freeipa_instance_type" {
+      type = string
+
+      description = "Instance Type to use for creating FreeIPA instances"
+
+      default = null
+    }
+    ```
+
+1. Update `main.tf` to pass the variable to the relevant module.
+
+    ```hcl
+    module "cdp_deploy" {
+    source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.10.2"
+
+    env_prefix          = var.
+    ... <other input variables>
+
+    # New variable
+    freeipa_instance_type = var.freeipa_instance_type
+    ```
+
+1. To define a value for the variable, update `terraform.tfvars` and set as required.
+
+    ```terraform-vars
+    freeipa_instance_type = "m5.large"
+    ```
