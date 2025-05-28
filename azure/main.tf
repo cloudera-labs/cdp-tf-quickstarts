@@ -56,7 +56,7 @@ provider "azuread" {
 }
 
 module "cdp_azure_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.10.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.11.0"
 
   env_prefix   = var.env_prefix
   azure_region = var.azure_region
@@ -65,12 +65,14 @@ module "cdp_azure_prereqs" {
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
 
   # Inputs for BYO-VNet
-  create_vnet                = var.create_vnet
-  cdp_resourcegroup_name     = var.cdp_resourcegroup_name
-  cdp_vnet_name              = var.cdp_vnet_name
-  cdp_subnet_names           = var.cdp_subnet_names
-  cdp_gw_subnet_names        = var.cdp_gw_subnet_names
-  cdp_delegated_subnet_names = var.cdp_delegated_subnet_names
+  create_vnet                     = var.create_vnet
+  cdp_resourcegroup_name          = var.cdp_resourcegroup_name
+  cdp_vnet_name                   = var.cdp_vnet_name
+  cdp_subnet_names                = var.cdp_subnet_names
+  cdp_gw_subnet_names             = var.cdp_gw_subnet_names
+  cdp_delegated_subnet_names      = var.cdp_delegated_subnet_names
+  separate_network_resource_group = var.separate_network_resource_group
+  network_resourcegroup_name      = var.network_resourcegroup_name
 
   # Tags to apply resources (omitted by default)
   env_tags = var.env_tags
@@ -78,7 +80,7 @@ module "cdp_azure_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.10.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.11.0"
 
   env_prefix          = var.env_prefix
   datalake_image      = var.datalake_image
@@ -94,6 +96,9 @@ module "cdp_deploy" {
   multiaz             = var.multiaz
   cdp_groups          = local.cdp_groups
 
+  compute_cluster_enabled       = var.compute_cluster_enabled
+  compute_cluster_configuration = var.compute_cluster_configuration
+
   environment_async_creation = var.environment_async_creation
   datalake_async_creation    = var.datalake_async_creation
 
@@ -101,10 +106,11 @@ module "cdp_deploy" {
   azure_subscription_id = var.azure_subscription_id == null ? module.cdp_azure_prereqs.azure_subscription_id : var.azure_subscription_id
   azure_tenant_id       = module.cdp_azure_prereqs.azure_tenant_id
 
-  azure_resource_group_name      = module.cdp_azure_prereqs.azure_resource_group_name
-  azure_vnet_name                = module.cdp_azure_prereqs.azure_vnet_name
-  azure_cdp_subnet_names         = module.cdp_azure_prereqs.azure_cdp_subnet_names
-  azure_cdp_gateway_subnet_names = module.cdp_azure_prereqs.azure_cdp_gateway_subnet_names
+  azure_cdp_resource_group_name     = module.cdp_azure_prereqs.azure_cdp_resource_group_name
+  azure_network_resource_group_name = module.cdp_azure_prereqs.azure_network_resource_group_name
+  azure_vnet_name                   = module.cdp_azure_prereqs.azure_vnet_name
+  azure_cdp_subnet_names            = module.cdp_azure_prereqs.azure_cdp_subnet_names
+  azure_cdp_gateway_subnet_names    = module.cdp_azure_prereqs.azure_cdp_gateway_subnet_names
 
   azure_environment_flexible_server_delegated_subnet_names = module.cdp_azure_prereqs.azure_cdp_flexible_server_delegated_subnet_names
   azure_database_private_dns_zone_id                       = module.cdp_azure_prereqs.azure_database_private_dns_zone_id

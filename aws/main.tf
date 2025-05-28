@@ -47,7 +47,7 @@ provider "aws" {
 }
 
 module "cdp_aws_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.10.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.11.0"
 
   env_prefix = var.env_prefix
   aws_region = var.aws_region
@@ -90,7 +90,7 @@ module "cdp_aws_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.10.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.11.0"
 
   env_prefix          = var.env_prefix
   datalake_image      = var.datalake_image
@@ -104,6 +104,9 @@ module "cdp_deploy" {
   datalake_recipes    = var.datalake_recipes
   freeipa_recipes     = var.freeipa_recipes
   cdp_groups          = local.cdp_groups
+
+  compute_cluster_enabled       = var.compute_cluster_enabled
+  compute_cluster_configuration = var.compute_cluster_configuration
 
   environment_async_creation = var.environment_async_creation
   datalake_async_creation    = var.datalake_async_creation

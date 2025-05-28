@@ -25,8 +25,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cdp_azure_prereqs"></a> [cdp\_azure\_prereqs](#module\_cdp\_azure\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs | v0.10.2 |
-| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.10.2 |
+| <a name="module_cdp_azure_prereqs"></a> [cdp\_azure\_prereqs](#module\_cdp\_azure\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs | v0.11.0 |
+| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.11.0 |
 
 ## Resources
 
@@ -50,6 +50,8 @@
 | <a name="input_cdp_resourcegroup_name"></a> [cdp\_resourcegroup\_name](#input\_cdp\_resourcegroup\_name) | Pre-existing Resource Group for CDP environment. Required if create\_vnet is false. | `string` | `null` | no |
 | <a name="input_cdp_subnet_names"></a> [cdp\_subnet\_names](#input\_cdp\_subnet\_names) | List of subnet names for CDP Resources. Required if create\_vnet is false. | `list(any)` | `null` | no |
 | <a name="input_cdp_vnet_name"></a> [cdp\_vnet\_name](#input\_cdp\_vnet\_name) | Pre-existing VNet Name for CDP environment. Required if create\_vnet is false. | `string` | `null` | no |
+| <a name="input_compute_cluster_configuration"></a> [compute\_cluster\_configuration](#input\_compute\_cluster\_configuration) | Kubernetes configuration for the externalized compute cluster | <pre>object({<br/>    kube_api_authorized_ip_ranges = optional(set(string))<br/>    outbound_type                 = optional(string)<br/>    private_cluster               = optional(bool)<br/>    worker_node_subnets           = optional(set(string))<br/>  })</pre> | `null` | no |
+| <a name="input_compute_cluster_enabled"></a> [compute\_cluster\_enabled](#input\_compute\_cluster\_enabled) | Enable externalized compute cluster for the environment | `bool` | `false` | no |
 | <a name="input_create_vnet"></a> [create\_vnet](#input\_create\_vnet) | Flag to specify if the VNet should be created | `bool` | `true` | no |
 | <a name="input_datalake_async_creation"></a> [datalake\_async\_creation](#input\_datalake\_async\_creation) | Flag to specify if Terraform should wait for CDP datalake resource creation/deletion | `bool` | `false` | no |
 | <a name="input_datalake_image"></a> [datalake\_image](#input\_datalake\_image) | The image to use for the datalake. Can only be used when 'datalake\_version' is null. | <pre>object({<br/>    id           = optional(string)<br/>    catalog_name = optional(string)<br/>    os           = optional(string)<br/>  })</pre> | `null` | no |
@@ -62,7 +64,9 @@
 | <a name="input_freeipa_recipes"></a> [freeipa\_recipes](#input\_freeipa\_recipes) | The recipes for the FreeIPA cluster | `set(string)` | `null` | no |
 | <a name="input_ingress_extra_cidrs_and_ports"></a> [ingress\_extra\_cidrs\_and\_ports](#input\_ingress\_extra\_cidrs\_and\_ports) | List of extra CIDR blocks and ports to include in Security Group Ingress rules | <pre>object({<br/>    cidrs = list(string)<br/>    ports = list(number)<br/>  })</pre> | `null` | no |
 | <a name="input_multiaz"></a> [multiaz](#input\_multiaz) | Flag to specify that the FreeIPA and DataLake instances will be deployed across multi-availability zones. | `bool` | `false` | no |
+| <a name="input_network_resourcegroup_name"></a> [network\_resourcegroup\_name](#input\_network\_resourcegroup\_name) | Resource Group name for Network resources. Only used if separate\_network\_resource\_group is true. If create\_vnet is false this is a pre-existing resource group. | `string` | `null` | no |
 | <a name="input_public_key_text"></a> [public\_key\_text](#input\_public\_key\_text) | SSH Public key string for the nodes of the CDP environment | `string` | `null` | no |
+| <a name="input_separate_network_resource_group"></a> [separate\_network\_resource\_group](#input\_separate\_network\_resource\_group) | Flag to specify if separate resource group is to be used for network and Cloudera resources | `bool` | `false` | no |
 
 ## Outputs
 
