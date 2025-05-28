@@ -62,3 +62,5 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 #     id  =  "<ENTER_DATALAKE_IMAGE_ID>"
 # }
   
+# ------- Optional inputs for Compute Cluster -------
+# compute_cluster_enabled = true # Set to true to enable creation of the default compute cluster

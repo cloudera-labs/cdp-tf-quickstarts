@@ -255,6 +255,31 @@ variable "cdp_delegated_subnet_names" {
   default = null
 }
 
+variable "separate_network_resource_group" {
+  type        = bool
+  description = "Flag to specify if separate resource group is to be used for network and Cloudera resources"
+
+  default = false
+}
+
+variable "network_resourcegroup_name" {
+  type        = string
+  description = "Resource Group name for Network resources. Only used if separate_network_resource_group is true. If create_vnet is false this is a pre-existing resource group."
+
+  default = null
+
+  validation {
+    condition     = (var.network_resourcegroup_name == null ? true : length(var.network_resourcegroup_name) >= 1 && length(var.network_resourcegroup_name) <= 90)
+    error_message = "The length of network_resourcegroup_name must be 90 characters or less."
+  }
+
+  validation {
+    condition     = (var.network_resourcegroup_name == null ? true : can(regex("^[a-zA-Z0-9\\-\\_\\.]{1,90}$", var.network_resourcegroup_name)))
+    error_message = "network_resourcegroup_name can consist only of letters, numbers, dots (.), hyphens (-) and underscores (_)."
+  }
+
+}
+
 variable "datalake_image" {
   type = object({
     id           = optional(string)
