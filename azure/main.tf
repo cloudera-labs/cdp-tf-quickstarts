@@ -65,14 +65,12 @@ module "cdp_azure_prereqs" {
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
 
   # Inputs for BYO-VNet
-  create_vnet                     = var.create_vnet
-  cdp_resourcegroup_name          = var.cdp_resourcegroup_name
-  cdp_vnet_name                   = var.cdp_vnet_name
-  cdp_subnet_names                = var.cdp_subnet_names
-  cdp_gw_subnet_names             = var.cdp_gw_subnet_names
-  cdp_delegated_subnet_names      = var.cdp_delegated_subnet_names
-  separate_network_resource_group = var.separate_network_resource_group
-  network_resourcegroup_name      = var.network_resourcegroup_name
+  create_vnet                = var.create_vnet
+  cdp_resourcegroup_name     = var.cdp_resourcegroup_name
+  cdp_vnet_name              = var.cdp_vnet_name
+  cdp_subnet_names           = var.cdp_subnet_names
+  cdp_gw_subnet_names        = var.cdp_gw_subnet_names
+  cdp_delegated_subnet_names = var.cdp_delegated_subnet_names
 
   # Tags to apply resources (omitted by default)
   env_tags = var.env_tags
