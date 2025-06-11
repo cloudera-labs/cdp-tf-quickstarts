@@ -181,12 +181,11 @@ variable "compute_cluster_enabled" {
 variable "compute_cluster_configuration" {
   type = object({
     kube_api_authorized_ip_ranges = optional(set(string))
-    outbound_type                 = optional(string)
     private_cluster               = optional(bool)
     worker_node_subnets           = optional(set(string))
   })
 
-  description = "Kubernetes configuration for the externalized compute cluster"
+  description = "Kubernetes configuration for the externalized compute cluster. If not specified, a default configuration suitable for the requested deployment template will be used."
 
   default = null
 }
