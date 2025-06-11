@@ -210,10 +210,10 @@ locals {
 locals {
   compute_cluster_configuration = var.compute_cluster_enabled ? (
     var.compute_cluster_configuration != null ? var.compute_cluster_configuration : {
-      kube_api_authorized_ip_ranges = var.deployment_template == "public" ? toset(local.ingress_extra_cidrs_and_ports.cidrs) : null
+      kube_api_authorized_ip_ranges = var.deployment_template == "private" ? null : toset(local.ingress_extra_cidrs_and_ports.cidrs)
       worker_node_subnets           = module.cdp_azure_prereqs.azure_cdp_subnet_names
-      private_cluster               = var.deployment_template == "public" ? false : true
-      outbound_type                 = "udr"
+      private_cluster               = var.deployment_template == "private" ? true : false
+      outbound_type                 = ""
     }
   ) : null
 }

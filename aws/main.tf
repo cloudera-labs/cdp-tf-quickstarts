@@ -224,9 +224,9 @@ locals {
 locals {
   compute_cluster_configuration = var.compute_cluster_enabled ? (
     var.compute_cluster_configuration != null ? var.compute_cluster_configuration : {
-      kube_api_authorized_ip_ranges = var.deployment_template == "public" ? toset(local.ingress_extra_cidrs_and_ports.cidrs) : null
-      worker_node_subnets           = module.cdp_aws_prereqs.aws_public_subnet_ids
-      private_cluster               = var.deployment_template == "public" ? false : true
+      kube_api_authorized_ip_ranges = var.deployment_template == "private" ? null : toset(local.ingress_extra_cidrs_and_ports.cidrs)
+      worker_node_subnets           = var.deployment_template == "public" ? (concat(module.cdp_aws_prereqs.aws_public_subnet_ids, module.cdp_aws_prereqs.aws_private_subnet_ids)) : (module.cdp_aws_prereqs.aws_private_subnet_ids)
+      private_cluster               = var.deployment_template == "private" ? true : false
     }
   ) : null
 }

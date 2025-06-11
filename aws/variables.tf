@@ -185,7 +185,7 @@ variable "compute_cluster_configuration" {
     worker_node_subnets           = optional(set(string))
   })
 
-  description = "Kubernetes configuration for the externalized compute cluster"
+  description = "Kubernetes configuration for the externalized compute cluster. If not specified, a default configuration suitable for the requested deployment template will be used."
 
   default = null
 }
