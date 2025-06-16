@@ -73,7 +73,7 @@ variable "environment_async_creation" {
 
   description = "Flag to specify if Terraform should wait for CDP environment resource creation/deletion"
 
-  default = false
+  default = true
 }
 
 variable "datalake_async_creation" {
