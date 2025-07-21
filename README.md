@@ -146,6 +146,15 @@ The optional variable `ingress_extra_cidrs_and_ports` in the `terraform.tvars` f
 
 When commented, this variable defaults to current public IP of the terraform client. In case this IP is a leased one - hence that might change overtime - you can uncomment this variable and set additional CIDRs or IP ranges via the `ingress_extra_cidrs_and_ports` variable.
 
+### DataLake Scale Configuration
+
+By default, the DataLake scale setting is determined based on the selected deployment template:
+
+* When `deployment_template` is set to `public`, the DataLake scale defaults to `LIGHT_DUTY`
+* When `deployment_template` is set to `semi-private` or `private`, the DataLake scale defaults to `ENTERPRISE`
+
+You can override this default behavior by explicitly setting the `datalake_scale` variable in your `terraform.tfvars` file as needed.
+
 ### Notes on AWS authentication
 
 * Details of the different methods to authenticate with AWS are available in the [aws Terraform provider docs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#authentication-and-configuration).
@@ -158,7 +167,7 @@ When commented, this variable defaults to current public IP of the terraform cli
 
 ### Notes on Azure authentication
 
-* Where you have more than one Azure Subscription the id to use can be passed via the the `ARM_SUBSCRIPTION_ID` environment variable.
+* Where you have more than one Azure Subscription the id to use can be passed via the the `ARM_SUBSCRIPTION_ID` environment variable or the `azure_subscription_id` Terraform input variable.
 
 * When using a Service Principal (SP) to authenticate with Azure, it is not possible to authenticate with azuread Terraform Provider (the provider used to create the Azure Cross Account AD Application) with the command az login --service-principal. We found the the best way to authenticate using an SP is by setting environment variables. Details of required environment variables are in the [azuread docs](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/guides/service_principal_client_secret#environment-variables) and [azurerm docs](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform) and summarized below.
 
