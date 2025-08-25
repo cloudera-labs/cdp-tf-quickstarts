@@ -6,6 +6,9 @@
 **/*.tfstate
 **/*.tfstate.*
 
+# Terraform plan files
+**/*.plan
+
 # Crash log files
 **/crash.log
 **/crash.*.log
@@ -17,6 +20,23 @@
 **/*.tfvars
 **/*.tfvars.json
 
+# Common secrets and variables files
+**/*.secret
+**/*.secrets.*
+**/*.vault
+# Environment variables
+**/.env
+**/.env.*
+**/.envrc
+
+# Credentials / keys
+**/*.pem
+**/*.key
+**/*.p12
+**/*.crt
+**/*.jks
+**/*.keystore
+
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
 **/override.tf
@@ -24,12 +44,21 @@
 **/*_override.tf
 **/*_override.tf.json
 
-# Include override files you do wish to add to version control using negated pattern
-# !example_override.tf
-
-# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
-# example: *tfplan*
-
 # Ignore CLI configuration files
 **/.terraformrc
 **/terraform.rc
+
+# OS / Editor junk
+**/.DS_Store
+**/Thumbs.db
+**/*.swp
+**/*.swo
+**/*.log
+**/.idea/
+**/.vscode/
+
+# Other temp files
+**/*.tmp
+**/*.bak
+**/*.pid
+**/*.retry
