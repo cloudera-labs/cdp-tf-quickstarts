@@ -6,7 +6,7 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
-| <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | 2.46.0 |
+| <a name="requirement_azuread"></a> [azuread](#requirement\_azuread) | >= 2.46.0, < 4.0.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 4.0.0 |
 | <a name="requirement_cdp"></a> [cdp](#requirement\_cdp) | >= 0.6.1 |
 | <a name="requirement_http"></a> [http](#requirement\_http) | ~> 3.2.1 |
@@ -25,8 +25,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cdp_azure_prereqs"></a> [cdp\_azure\_prereqs](#module\_cdp\_azure\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs | v0.11.3 |
-| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.11.3 |
+| <a name="module_cdp_azure_prereqs"></a> [cdp\_azure\_prereqs](#module\_cdp\_azure\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs | v0.12.0 |
+| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.12.0 |
 
 ## Resources
 
@@ -43,6 +43,7 @@
 | <a name="input_azure_region"></a> [azure\_region](#input\_azure\_region) | Region which Cloud resources will be created | `string` | n/a | yes |
 | <a name="input_deployment_template"></a> [deployment\_template](#input\_deployment\_template) | Deployment Pattern to use for Cloud resources and CDP | `string` | n/a | yes |
 | <a name="input_env_prefix"></a> [env\_prefix](#input\_env\_prefix) | Shorthand name for the environment. Used in resource descriptions | `string` | n/a | yes |
+| <a name="input_azure_create_private_endpoints"></a> [azure\_create\_private\_endpoints](#input\_azure\_create\_private\_endpoints) | Flag to specify if private endpoints should be created for Azure resources. If not specified the default is true for deployment\_template values of semi-private and private, otherwise false. | `bool` | `null` | no |
 | <a name="input_azure_subscription_id"></a> [azure\_subscription\_id](#input\_azure\_subscription\_id) | The subscription where the environment should be deployed to | `string` | `null` | no |
 | <a name="input_cdp_delegated_subnet_names"></a> [cdp\_delegated\_subnet\_names](#input\_cdp\_delegated\_subnet\_names) | List of subnet names delegated for Flexible Servers. Required if create\_vnet is false. | `list(any)` | `null` | no |
 | <a name="input_cdp_groups"></a> [cdp\_groups](#input\_cdp\_groups) | List of CDP Groups to be added to the IDBroker mappings of the environment. If create\_group is set to true then the group will be created. | <pre>set(object({<br/>    name                          = string<br/>    create_group                  = bool<br/>    sync_membership_on_user_login = optional(bool)<br/>    add_id_broker_mappings        = bool<br/>    })<br/>  )</pre> | `null` | no |
@@ -52,6 +53,8 @@
 | <a name="input_cdp_vnet_name"></a> [cdp\_vnet\_name](#input\_cdp\_vnet\_name) | Pre-existing VNet Name for CDP environment. Required if create\_vnet is false. | `string` | `null` | no |
 | <a name="input_compute_cluster_configuration"></a> [compute\_cluster\_configuration](#input\_compute\_cluster\_configuration) | Kubernetes configuration for the externalized compute cluster. If not specified, a default configuration suitable for the requested deployment template will be used. | <pre>object({<br/>    kube_api_authorized_ip_ranges = optional(set(string))<br/>    outbound_type                 = optional(string)<br/>    private_cluster               = optional(bool)<br/>    worker_node_subnets           = optional(set(string))<br/>  })</pre> | `null` | no |
 | <a name="input_compute_cluster_enabled"></a> [compute\_cluster\_enabled](#input\_compute\_cluster\_enabled) | Enable externalized compute cluster for the environment | `bool` | `false` | no |
+| <a name="input_create_delegated_subnet"></a> [create\_delegated\_subnet](#input\_create\_delegated\_subnet) | Flag to specify if the delegated subnet should be created. Only applicable if create\_vnet is true. When this is set to true the azure\_create\_private\_endpoints should be false. | `bool` | `false` | no |
+| <a name="input_create_nat_gateway"></a> [create\_nat\_gateway](#input\_create\_nat\_gateway) | Flag to specify if the NAT Gateway should be created. Only applicable if create\_vnet is true. | `bool` | `true` | no |
 | <a name="input_create_vnet"></a> [create\_vnet](#input\_create\_vnet) | Flag to specify if the VNet should be created | `bool` | `true` | no |
 | <a name="input_datalake_async_creation"></a> [datalake\_async\_creation](#input\_datalake\_async\_creation) | Flag to specify if Terraform should wait for CDP datalake resource creation/deletion | `bool` | `false` | no |
 | <a name="input_datalake_image"></a> [datalake\_image](#input\_datalake\_image) | The image to use for the datalake. Can only be used when 'datalake\_version' is null. | <pre>object({<br/>    id           = optional(string)<br/>    catalog_name = optional(string)<br/>    os           = optional(string)<br/>  })</pre> | `null` | no |

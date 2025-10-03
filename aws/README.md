@@ -26,8 +26,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cdp_aws_prereqs"></a> [cdp\_aws\_prereqs](#module\_cdp\_aws\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs | v0.11.3 |
-| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.11.3 |
+| <a name="module_cdp_aws_prereqs"></a> [cdp\_aws\_prereqs](#module\_cdp\_aws\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs | v0.12.0 |
+| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.12.0 |
 
 ## Resources
 
