@@ -200,6 +200,13 @@ variable "compute_cluster_configuration" {
   default = null
 }
 
+variable "azure_create_private_endpoints" {
+  type        = bool
+  description = "Flag to specify if private endpoints should be created for Azure resources. If not specified the default is true for deployment_template values of semi-private and private, otherwise false."
+
+  default = null
+}
+
 # ------- Network Resources -------
 variable "ingress_extra_cidrs_and_ports" {
   type = object({
@@ -209,6 +216,22 @@ variable "ingress_extra_cidrs_and_ports" {
   description = "List of extra CIDR blocks and ports to include in Security Group Ingress rules"
 
   default = null
+}
+
+variable "create_nat_gateway" {
+  type = bool
+
+  description = "Flag to specify if the NAT Gateway should be created. Only applicable if create_vnet is true."
+
+  default = true
+}
+
+variable "create_delegated_subnet" {
+  type = bool
+
+  description = "Flag to specify if the delegated subnet should be created. Only applicable if create_vnet is true. When this is set to true the azure_create_private_endpoints should be false."
+
+  default = false
 }
 
 # ------- Optional inputs for BYO-VNet -------

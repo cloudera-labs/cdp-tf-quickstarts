@@ -25,7 +25,7 @@ terraform {
     }
     azuread = {
       source  = "hashicorp/azuread"
-      version = "2.46.0"
+      version = ">= 2.46.0, < 4.0.0"
     }
     tls = {
       source  = "hashicorp/tls"
@@ -56,13 +56,15 @@ provider "azuread" {
 }
 
 module "cdp_azure_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.11.3"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-azure-pre-reqs?ref=v0.12.0"
 
   env_prefix   = var.env_prefix
   azure_region = var.azure_region
 
   deployment_template           = var.deployment_template
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
+  create_nat_gateway            = var.create_nat_gateway
+  create_delegated_subnet       = var.create_delegated_subnet
 
   # Inputs for BYO-VNet
   create_vnet                = var.create_vnet
@@ -78,7 +80,7 @@ module "cdp_azure_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.11.3"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.12.0"
 
   env_prefix          = var.env_prefix
   datalake_image      = var.datalake_image
@@ -99,6 +101,8 @@ module "cdp_deploy" {
 
   environment_async_creation = var.environment_async_creation
   datalake_async_creation    = var.datalake_async_creation
+
+  azure_create_private_endpoints = coalesce(var.azure_create_private_endpoints, var.deployment_template != "public")
 
   # From pre-reqs module output
   azure_subscription_id = var.azure_subscription_id == null ? module.cdp_azure_prereqs.azure_subscription_id : var.azure_subscription_id
