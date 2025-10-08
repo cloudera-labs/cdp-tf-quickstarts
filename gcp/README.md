@@ -16,10 +16,10 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 7.5.0 |
-| <a name="provider_http"></a> [http](#provider\_http) | 3.2.1 |
-| <a name="provider_local"></a> [local](#provider\_local) | 2.5.3 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.6 |
+| <a name="provider_google"></a> [google](#provider\_google) | >= 6.12.0 |
+| <a name="provider_http"></a> [http](#provider\_http) | ~> 3.2.1 |
+| <a name="provider_local"></a> [local](#provider\_local) | ~> 2.5.1 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | ~> 4.0.5 |
 
 ## Modules
 
