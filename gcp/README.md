@@ -16,17 +16,17 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | >= 6.12.0 |
-| <a name="provider_http"></a> [http](#provider\_http) | ~> 3.2.1 |
-| <a name="provider_local"></a> [local](#provider\_local) | ~> 2.5.1 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | ~> 4.0.5 |
+| <a name="provider_google"></a> [google](#provider\_google) | 7.5.0 |
+| <a name="provider_http"></a> [http](#provider\_http) | 3.2.1 |
+| <a name="provider_local"></a> [local](#provider\_local) | 2.5.3 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.6 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.12.0 |
-| <a name="module_cdp_gcp_prereqs"></a> [cdp\_gcp\_prereqs](#module\_cdp\_gcp\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs | v0.12.0 |
+| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.12.1 |
+| <a name="module_cdp_gcp_prereqs"></a> [cdp\_gcp\_prereqs](#module\_cdp\_gcp\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs | v0.12.1 |
 
 ## Resources
 
