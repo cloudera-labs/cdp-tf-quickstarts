@@ -120,6 +120,19 @@ variable "freeipa_recipes" {
   default = null
 }
 
+variable "freeipa_architecture" {
+  type = string
+
+  description = "The Architecture to be used for the FreeIPA instances"
+
+  validation {
+    condition     = (var.freeipa_architecture == null ? true : contains(["X86_64", "ARM64"], var.freeipa_architecture))
+    error_message = "Valid values for var: freeipa_architecture are (X86_64, ARM64)."
+  }
+
+  default = "ARM64"
+}
+
 variable "datalake_recipes" {
   type = set(
     object({

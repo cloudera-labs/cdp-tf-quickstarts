@@ -92,18 +92,19 @@ module "cdp_aws_prereqs" {
 module "cdp_deploy" {
   source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.12.2"
 
-  env_prefix          = var.env_prefix
-  datalake_image      = var.datalake_image
-  infra_type          = "aws"
-  region              = var.aws_region
-  keypair_name        = local.aws_key_pair
-  deployment_template = var.deployment_template
-  datalake_scale      = var.datalake_scale
-  datalake_version    = var.datalake_version
-  enable_raz          = var.enable_raz
-  datalake_recipes    = var.datalake_recipes
-  freeipa_recipes     = var.freeipa_recipes
-  cdp_groups          = local.cdp_groups
+  env_prefix           = var.env_prefix
+  datalake_image       = var.datalake_image
+  infra_type           = "aws"
+  region               = var.aws_region
+  keypair_name         = local.aws_key_pair
+  deployment_template  = var.deployment_template
+  datalake_scale       = var.datalake_scale
+  datalake_version     = var.datalake_version
+  enable_raz           = var.enable_raz
+  datalake_recipes     = var.datalake_recipes
+  freeipa_recipes      = var.freeipa_recipes
+  freeipa_architecture = var.freeipa_architecture
+  cdp_groups           = local.cdp_groups
 
   compute_cluster_enabled       = var.compute_cluster_enabled
   compute_cluster_configuration = local.compute_cluster_configuration
