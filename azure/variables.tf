@@ -48,6 +48,18 @@ variable "env_tags" {
 }
 
 # ------- CDP Environment Deployment -------
+variable "environment_type" {
+  type        = string
+  description = "Type of environment to create - Options are HYBRID or PUBLIC_CLOUD"
+
+  validation {
+    condition     = (var.environment_type == null ? true : contains(["HYBRID", "PUBLIC_CLOUD"], var.environment_type))
+    error_message = "Valid values for var: environment_type are (HYBRID, PUBLIC_CLOUD)."
+  }
+
+  default = null
+}
+
 variable "deployment_template" {
   type = string
 

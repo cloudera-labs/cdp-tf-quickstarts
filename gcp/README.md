@@ -25,8 +25,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.12.2 |
-| <a name="module_cdp_gcp_prereqs"></a> [cdp\_gcp\_prereqs](#module\_cdp\_gcp\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs | v0.12.2 |
+| <a name="module_cdp_deploy"></a> [cdp\_deploy](#module\_cdp\_deploy) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy | v0.13.0 |
+| <a name="module_cdp_gcp_prereqs"></a> [cdp\_gcp\_prereqs](#module\_cdp\_gcp\_prereqs) | git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-gcp-pre-reqs | v0.13.0 |
 
 ## Resources
 
@@ -56,6 +56,7 @@
 | <a name="input_enable_raz"></a> [enable\_raz](#input\_enable\_raz) | Flag to enable Ranger Authorization Service (RAZ) | `bool` | `true` | no |
 | <a name="input_env_tags"></a> [env\_tags](#input\_env\_tags) | Tags applied to pvovisioned resources | `map(any)` | `null` | no |
 | <a name="input_environment_async_creation"></a> [environment\_async\_creation](#input\_environment\_async\_creation) | Flag to specify if Terraform should wait for CDP environment resource creation/deletion | `bool` | `false` | no |
+| <a name="input_environment_type"></a> [environment\_type](#input\_environment\_type) | Type of environment to create - Options are HYBRID or PUBLIC\_CLOUD | `string` | `null` | no |
 | <a name="input_freeipa_recipes"></a> [freeipa\_recipes](#input\_freeipa\_recipes) | The recipes for the FreeIPA cluster | `set(string)` | `null` | no |
 | <a name="input_gcp_project"></a> [gcp\_project](#input\_gcp\_project) | Region which Cloud resources will be created. Can also be set via gcloud project default or environment variable. | `string` | `null` | no |
 | <a name="input_ingress_extra_cidrs_and_ports"></a> [ingress\_extra\_cidrs\_and\_ports](#input\_ingress\_extra\_cidrs\_and\_ports) | List of extra CIDR blocks and ports to include in Security Group Ingress rules | <pre>object({<br/>    cidrs = list(string)<br/>    ports = list(number)<br/>  })</pre> | `null` | no |

@@ -47,7 +47,7 @@ provider "aws" {
 }
 
 module "cdp_aws_prereqs" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.12.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-aws-pre-reqs?ref=v0.13.0"
 
   env_prefix = var.env_prefix
   aws_region = var.aws_region
@@ -90,27 +90,30 @@ module "cdp_aws_prereqs" {
 }
 
 module "cdp_deploy" {
-  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.12.2"
+  source = "git::https://github.com/cloudera-labs/terraform-cdp-modules.git//modules/terraform-cdp-deploy?ref=v0.13.0"
 
-  env_prefix           = var.env_prefix
-  datalake_image       = var.datalake_image
-  infra_type           = "aws"
-  region               = var.aws_region
-  keypair_name         = local.aws_key_pair
-  deployment_template  = var.deployment_template
-  datalake_scale       = var.datalake_scale
-  datalake_version     = var.datalake_version
-  enable_raz           = var.enable_raz
-  datalake_recipes     = var.datalake_recipes
-  freeipa_recipes      = var.freeipa_recipes
-  freeipa_architecture = var.freeipa_architecture
-  cdp_groups           = local.cdp_groups
+  env_prefix          = var.env_prefix
+  environment_type    = var.environment_type
+  datalake_image      = var.datalake_image
+  infra_type          = "aws"
+  region              = var.aws_region
+  keypair_name        = local.aws_key_pair
+  deployment_template = var.deployment_template
+  datalake_scale      = var.datalake_scale
+  datalake_version    = var.datalake_version
+  enable_raz          = var.enable_raz
+  datalake_recipes    = var.datalake_recipes
+  freeipa_recipes     = var.freeipa_recipes
+  cdp_groups          = local.cdp_groups
 
   compute_cluster_enabled       = var.compute_cluster_enabled
   compute_cluster_configuration = local.compute_cluster_configuration
 
   environment_async_creation = var.environment_async_creation
   datalake_async_creation    = var.datalake_async_creation
+
+  freeipa_architecture  = var.freeipa_architecture
+  datalake_architecture = var.datalake_architecture
 
   # From pre-reqs module output
   aws_vpc_id             = module.cdp_aws_prereqs.aws_vpc_id

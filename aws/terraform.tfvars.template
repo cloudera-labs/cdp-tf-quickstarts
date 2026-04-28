@@ -63,3 +63,10 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
  
 # ------- Optional inputs for Compute Cluster -------
 # compute_cluster_enabled = true # Set to true to enable creation of the default compute cluster
+
+# ------- Optional input for Hybrid environment type -------
+# environment_type = "HYBRID" # Type of environment to create - Options are HYBRID or PUBLIC_CLOUD
+
+# ------- Optional inputs instance architecture -------
+# freeipa_architecture  = "ARM64" # The CPU Architecture to be used for the FreeIPA instance, options are X86_64 or ARM64.
+# datalake_architecture = "ARM64" # The CPU Architecture to be used for the Datalake instances, options are X86_64 or ARM64.
