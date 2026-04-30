@@ -48,6 +48,18 @@ variable "env_tags" {
 }
 
 # ------- CDP Environment Deployment -------
+variable "environment_type" {
+  type        = string
+  description = "Type of environment to create - Options are HYBRID or PUBLIC_CLOUD"
+
+  validation {
+    condition     = (var.environment_type == null ? true : contains(["HYBRID", "PUBLIC_CLOUD"], var.environment_type))
+    error_message = "Valid values for var: environment_type are (HYBRID, PUBLIC_CLOUD)."
+  }
+
+  default = null
+}
+
 variable "deployment_template" {
   type = string
 
@@ -186,6 +198,32 @@ variable "compute_cluster_configuration" {
   })
 
   description = "Kubernetes configuration for the externalized compute cluster. If not specified, a default configuration suitable for the requested deployment template will be used."
+
+  default = null
+}
+
+variable "freeipa_architecture" {
+  type = string
+
+  description = "The CPU Architecture to be used for the FreeIPA instances"
+
+  validation {
+    condition     = (var.freeipa_architecture == null ? true : contains(["X86_64", "ARM64"], var.freeipa_architecture))
+    error_message = "Valid values for var: freeipa_architecture are (X86_64, ARM64)."
+  }
+
+  default = null
+}
+
+variable "datalake_architecture" {
+  type = string
+
+  description = "The CPU Architecture to be used for the Datalake instances. Only applicable for CDP deployment on AWS."
+
+  validation {
+    condition     = (var.datalake_architecture == null ? true : contains(["X86_64", "ARM64"], var.datalake_architecture))
+    error_message = "Valid values for var: datalake_architecture are (X86_64, ARM64)."
+  }
 
   default = null
 }

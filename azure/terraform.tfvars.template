@@ -64,3 +64,6 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
   
 # ------- Optional inputs for Compute Cluster -------
 # compute_cluster_enabled = true # Set to true to enable creation of the default compute cluster
+
+# ------- Optional input for Hybrid environment type -------
+# environment_type = "HYBRID" # Type of environment to create - Options are HYBRID or PUBLIC_CLOUD
