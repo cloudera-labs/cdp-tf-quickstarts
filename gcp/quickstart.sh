@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-export CDP_QUICKSTART_VERSON="v0.12.2"
+export CDP_QUICKSTART_VERSON="v0.13.0"
 
 export TF_VAR_gcp_project="${1:-""}"
 export TF_VAR_gcp_region="${2:-""}"
@@ -26,7 +26,6 @@ export TF_VAR_ingress_extra_cidrs_and_ports=${6:-"{ cidrs = [\"0.0.0.0/0\"], por
 export TF_VAR_env_tags='{"deploy_tool": "express-tf", "env_prefix": "'"$2"'"}'
 export TF_VAR_environment_async_creation="true"
 export TF_VAR_datalake_async_creation="true"
-export TF_VAR_datalake_scale="LIGHT_DUTY"
 
 prepare_destroy_script() {
     # Save TF variables to file
@@ -42,7 +41,6 @@ export TF_VAR_env_tags="${TF_VAR_env_tags}"
 export TF_VAR_environment_async_creation="${TF_VAR_environment_async_creation}"
 export TF_VAR_datalake_async_creation="${TF_VAR_datalake_async_creation}"
 export TF_VAR_ingress_extra_cidrs_and_ports='${TF_VAR_ingress_extra_cidrs_and_ports}'
-export TF_VAR_datalake_scale="${TF_VAR_datalake_scale}"
 EOF
 
     destroy_file="${HOME}/destroy.sh"
