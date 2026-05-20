@@ -212,7 +212,7 @@ variable "freeipa_architecture" {
     error_message = "Valid values for var: freeipa_architecture are (X86_64, ARM64)."
   }
 
-  default = null
+  default = "ARM64"
 }
 
 variable "datalake_architecture" {
@@ -225,7 +225,7 @@ variable "datalake_architecture" {
     error_message = "Valid values for var: datalake_architecture are (X86_64, ARM64)."
   }
 
-  default = null
+  default = "ARM64"
 }
 
 # ------- Network Resources -------
