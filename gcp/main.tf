@@ -53,6 +53,7 @@ module "cdp_gcp_prereqs" {
   deployment_template = var.deployment_template
 
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
+  vpc_cidr                      = var.vpc_cidr
 
   # Inputs for BYO-VPC
   create_vpc       = var.create_vpc

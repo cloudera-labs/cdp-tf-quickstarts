@@ -53,6 +53,7 @@ module "cdp_aws_prereqs" {
   aws_region = var.aws_region
 
   deployment_template           = var.deployment_template
+  vpc_cidr                      = var.vpc_cidr
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
 
   # Using CDP TF Provider cred pre-reqs data source for values of xaccount account_id and external_id

@@ -239,6 +239,12 @@ variable "ingress_extra_cidrs_and_ports" {
   default = null
 }
 
+variable "vpc_cidr" {
+  type        = string
+  description = "CIDR block for the VPC to be created"
+
+  default = "10.10.0.0/16"
+}
 # ------- Optional inputs for BYO-VPC -------
 variable "create_vpc" {
   type = bool

@@ -246,6 +246,13 @@ variable "create_delegated_subnet" {
   default = false
 }
 
+variable "vnet_cidr" {
+  type        = string
+  description = "VNet CIDR Block"
+
+  default = "10.10.0.0/16"
+}
+
 # ------- Optional inputs for BYO-VNet -------
 variable "create_vnet" {
   type = bool
