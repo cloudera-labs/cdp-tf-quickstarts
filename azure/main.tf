@@ -63,6 +63,7 @@ module "cdp_azure_prereqs" {
 
   deployment_template           = var.deployment_template
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
+  vnet_cidr                     = var.vnet_cidr
   create_nat_gateway            = var.create_nat_gateway
   create_delegated_subnet       = var.create_delegated_subnet
 
