@@ -55,6 +55,7 @@ module "cdp_aws_prereqs" {
   deployment_template           = var.deployment_template
   vpc_cidr                      = var.vpc_cidr
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
+  use_prefix_list_for_ingress   = var.use_prefix_list_for_ingress
 
   # Using CDP TF Provider cred pre-reqs data source for values of xaccount account_id and external_id
   xaccount_account_id         = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.account_id

@@ -229,6 +229,14 @@ variable "datalake_architecture" {
 }
 
 # ------- Network Resources -------
+variable "use_prefix_list_for_ingress" {
+  type = bool
+
+  description = "Whether to use Managed Prefix Lists for Security Group ingress rules instead of direct CIDR blocks"
+
+  default = false
+}
+
 variable "ingress_extra_cidrs_and_ports" {
   type = object({
     cidrs = list(string)

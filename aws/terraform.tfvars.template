@@ -41,6 +41,9 @@ deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. O
 # ports = [443, 22]
 # }
 
+# ------- Optional inputs for Managed Prefix Lists -------
+# use_prefix_list_for_ingress = false # Set to true to use Managed Prefix Lists for Security Group ingress rules instead of direct CIDR blocks
+
 # ------- Optional inputs for BYO-VPC -------
 # **NOTE: Uncomment below settings if required
 
