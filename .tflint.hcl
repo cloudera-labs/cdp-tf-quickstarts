@@ -1,5 +1,3 @@
----
-
 # Copyright 2024 Cloudera, Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,25 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: Check Terraform Formatting
- 
-on:
-  pull_request:
-  push:
-    branches: [main]
+plugin "terraform" {
+    enabled = true
+    version = "0.15.0"
+    source  = "github.com/terraform-linters/tflint-ruleset-terraform"
+}
 
-jobs:
-  check-tf-fmt:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
- 
-      # Setup terraform
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3 
-                
-      - name: Validate with terraform fmt
-        uses: pre-commit/action@v3.0.0
-        with:
-          extra_args: terraform_fmt --all-files
+config {
+  call_module_type = "local"
+  force  = false
+}
