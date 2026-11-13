@@ -165,7 +165,7 @@ data "http" "my_ip" {
   url = "https://ipv4.icanhazip.com"
 }
 
-# ------- Create default admin and user CDP group if input cdp_group variable is not specified
+# ------- Create default administrator and user Cloudera groups if the cdp_group variable is not specified
 locals {
   # flag to determine if keypair should be created
   cdp_groups = var.cdp_groups != null ? var.cdp_groups : toset([
