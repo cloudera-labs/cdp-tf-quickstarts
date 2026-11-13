@@ -35,7 +35,7 @@ variable "azure_region" {
 variable "public_key_text" {
   type = string
 
-  description = "SSH Public key string for the nodes of the CDP environment"
+  description = "Public SSH key for the Cloudera environment nodes"
 
   default = null
 }
@@ -47,7 +47,7 @@ variable "env_tags" {
   default = null
 }
 
-# ------- CDP Environment Deployment -------
+# ------- Cloudera environment deployment -------
 variable "environment_type" {
   type        = string
   description = "Type of environment to create - Options are HYBRID or PUBLIC_CLOUD"
@@ -63,7 +63,7 @@ variable "environment_type" {
 variable "deployment_template" {
   type = string
 
-  description = "Deployment Pattern to use for Cloud resources and CDP"
+  description = "Deployment pattern for cloud resources and Cloudera"
 
   validation {
     condition     = contains(["public", "semi-private", "private"], var.deployment_template)
@@ -83,7 +83,7 @@ variable "multiaz" {
 variable "environment_async_creation" {
   type = bool
 
-  description = "Flag to specify if Terraform should wait for CDP environment resource creation/deletion"
+  description = "Flag to specify whether Terraform waits for Cloudera environment creation or deletion"
 
   default = false
 }
@@ -91,7 +91,7 @@ variable "environment_async_creation" {
 variable "datalake_async_creation" {
   type = bool
 
-  description = "Flag to specify if Terraform should wait for CDP datalake resource creation/deletion"
+  description = "Flag to specify whether Terraform waits for Cloudera data lake creation or deletion"
 
   default = false
 }
@@ -171,21 +171,21 @@ variable "cdp_groups" {
     })
   )
 
-  description = "List of CDP Groups to be added to the IDBroker mappings of the environment. If create_group is set to true then the group will be created."
+  description = "List of Cloudera groups to add to the environment's IDBroker mappings. If create_group is true, the group is created."
 
   validation {
     condition = (var.cdp_groups == null ? true : alltrue([
       for grp in var.cdp_groups :
       length(grp.name) >= 1 && length(grp.name) <= 64
     ]))
-    error_message = "The length of all CDP group names must be 64 characters or less."
+    error_message = "The length of all Cloudera group names must be 64 characters or less."
   }
   validation {
     condition = (var.cdp_groups == null ? true : alltrue([
       for grp in var.cdp_groups :
       can(regex("^[a-zA-Z0-9\\-\\_\\.]{1,90}$", grp.name))
     ]))
-    error_message = "CDP group names can consist only of letters, numbers, dots (.), hyphens (-) and underscores (_)."
+    error_message = "Cloudera group names can consist only of letters, numbers, dots (.), hyphens (-), and underscores (_)."
   }
 
   default = null
@@ -264,28 +264,28 @@ variable "create_vnet" {
 
 variable "cdp_resourcegroup_name" {
   type        = string
-  description = "Pre-existing Resource Group for CDP environment. Required if create_vnet is false."
+  description = "Existing resource group for the Cloudera environment. Required if create_vnet is false."
 
   default = null
 }
 
 variable "cdp_vnet_name" {
   type        = string
-  description = "Pre-existing VNet Name for CDP environment. Required if create_vnet is false."
+  description = "Existing VNet name for the Cloudera environment. Required if create_vnet is false."
 
   default = null
 }
 
 variable "cdp_subnet_names" {
   type        = list(any)
-  description = "List of subnet names for CDP Resources. Required if create_vnet is false."
+  description = "List of subnet names for Cloudera resources. Required if create_vnet is false."
 
   default = null
 }
 
 variable "cdp_gw_subnet_names" {
   type        = list(any)
-  description = "List of subnet names for CDP Gateway. Required if create_vnet is false."
+  description = "List of subnet names for the Cloudera gateway. Required if create_vnet is false."
 
   default = null
 }

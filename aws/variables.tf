@@ -35,7 +35,7 @@ variable "env_prefix" {
 variable "aws_key_pair" {
   type = string
 
-  description = "Name of the Public SSH key for the CDP environment"
+  description = "Name of the public SSH key for the Cloudera environment"
 
   default = null
 }
@@ -47,7 +47,7 @@ variable "env_tags" {
   default = null
 }
 
-# ------- CDP Environment Deployment -------
+# ------- Cloudera environment deployment -------
 variable "environment_type" {
   type        = string
   description = "Type of environment to create - Options are HYBRID or PUBLIC_CLOUD"
@@ -63,7 +63,7 @@ variable "environment_type" {
 variable "deployment_template" {
   type = string
 
-  description = "Deployment Pattern to use for Cloud resources and CDP"
+  description = "Deployment pattern for cloud resources and Cloudera"
 
   validation {
     condition     = contains(["public", "semi-private", "private"], var.deployment_template)
@@ -74,7 +74,7 @@ variable "deployment_template" {
 variable "environment_async_creation" {
   type = bool
 
-  description = "Flag to specify if Terraform should wait for CDP environment resource creation/deletion"
+  description = "Flag to specify whether Terraform waits for Cloudera environment creation or deletion"
 
   default = false
 }
@@ -82,7 +82,7 @@ variable "environment_async_creation" {
 variable "datalake_async_creation" {
   type = bool
 
-  description = "Flag to specify if Terraform should wait for CDP datalake resource creation/deletion"
+  description = "Flag to specify whether Terraform waits for Cloudera data lake creation or deletion"
 
   default = false
 }
@@ -162,21 +162,21 @@ variable "cdp_groups" {
     })
   )
 
-  description = "List of CDP Groups to be added to the IDBroker mappings of the environment. If create_group is set to true then the group will be created."
+  description = "List of Cloudera groups to add to the environment's IDBroker mappings. If create_group is true, the group is created."
 
   validation {
     condition = (var.cdp_groups == null ? true : alltrue([
       for grp in var.cdp_groups :
       length(grp.name) >= 1 && length(grp.name) <= 64
     ]))
-    error_message = "The length of all CDP group names must be 64 characters or less."
+    error_message = "The length of all Cloudera group names must be 64 characters or less."
   }
   validation {
     condition = (var.cdp_groups == null ? true : alltrue([
       for grp in var.cdp_groups :
       can(regex("^[a-zA-Z0-9\\-\\_\\.]{1,90}$", grp.name))
     ]))
-    error_message = "CDP group names can consist only of letters, numbers, dots (.), hyphens (-) and underscores (_)."
+    error_message = "Cloudera group names can consist only of letters, numbers, dots (.), hyphens (-), and underscores (_)."
   }
 
   default = null
@@ -218,7 +218,7 @@ variable "freeipa_architecture" {
 variable "datalake_architecture" {
   type = string
 
-  description = "The CPU Architecture to be used for the Datalake instances. Only applicable for CDP deployment on AWS."
+  description = "CPU architecture for data lake instances. Only applicable to Cloudera on AWS."
 
   validation {
     condition     = (var.datalake_architecture == null ? true : contains(["X86_64", "ARM64"], var.datalake_architecture))
@@ -264,7 +264,7 @@ variable "create_vpc" {
 
 variable "cdp_vpc_id" {
   type        = string
-  description = "VPC ID for CDP environment. Required if create_vpc is false."
+  description = "VPC ID for the Cloudera environment. Required if create_vpc is false."
 
   default = null
 }
@@ -287,7 +287,7 @@ variable "cdp_private_subnet_ids" {
 variable "private_network_extensions" {
   type = bool
 
-  description = "Enable creation of resources for connectivity to CDP Control Plane (public subnet and NAT Gateway) for Private Deployment. Only relevant for private deployment template"
+  description = "Enable resources for connectivity to Cloudera Control Plane (public subnet and NAT Gateway) for private deployments. Only relevant to the private deployment template."
 
   default = true
 }
@@ -301,4 +301,3 @@ variable "datalake_image" {
   description = "The image to use for the datalake. Can only be used when 'datalake_version' is null."
   default     = null
 }
-

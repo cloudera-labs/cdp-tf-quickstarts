@@ -57,12 +57,12 @@ module "cdp_aws_prereqs" {
   ingress_extra_cidrs_and_ports = local.ingress_extra_cidrs_and_ports
   use_prefix_list_for_ingress   = var.use_prefix_list_for_ingress
 
-  # Using CDP TF Provider cred pre-reqs data source for values of xaccount account_id and external_id
+  # Use the Cloudera Terraform provider credential prerequisites data source for the cross-account account ID and external ID.
   xaccount_account_id         = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.account_id
   xaccount_external_id        = data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.external_id
   xaccount_account_policy_doc = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policy)
 
-  # Policy documents from CDP TF Provider cred pre-reqs
+  # Policy documents from the Cloudera Terraform provider credential prerequisites.
   idbroker_policy_doc = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Idbroker_Assumer"])
 
   data_bucket_access_policy_doc   = base64decode(data.cdp_environments_aws_credential_prerequisites.cdp_prereqs.policies["Bucket_Access"])
@@ -145,7 +145,7 @@ module "cdp_deploy" {
   ]
 }
 
-# Use the CDP Terraform Provider to find the xaccount account, external ids and policy contents
+# Use the Cloudera Terraform provider to find the cross-account account, external IDs, and policy contents.
 data "cdp_environments_aws_credential_prerequisites" "cdp_prereqs" {}
 
 
@@ -209,7 +209,7 @@ data "http" "my_ip" {
   url = "https://ipv4.icanhazip.com"
 }
 
-# ------- Create default admin and user CDP group if input cdp_group variable is not specified
+# ------- Create default administrator and user Cloudera groups if the cdp_group variable is not specified
 locals {
   # flag to determine if keypair should be created
   cdp_groups = var.cdp_groups != null ? var.cdp_groups : toset([
