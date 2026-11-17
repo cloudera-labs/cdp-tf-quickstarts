@@ -1,16 +1,16 @@
 
-# Cloudera on cloud Quickstart Using Terraform
+# Cloudera on cloud quickstart using Terraform
 
-This repository provides Terraform resources to quickly deploy **Cloudera on Cloud** and associated pre-requisite **Cloud Service Provider (CSP)** resources. It uses the [CDP Terraform Modules](https://github.com/cloudera-labs/terraform-cdp-modules) to do this.
+This repository provides Terraform resources to quickly deploy **Cloudera on cloud** and the associated prerequisite cloud provider resources. It uses the [Cloudera Terraform modules](https://github.com/cloudera-labs/terraform-cdp-modules).
 
-A summary requirements, configuration and execution steps to use this repository is given below.
+This guide summarizes the requirements, configuration, and steps for using this repository.
 
 ## ⚠️ Prerequisites
 
 To use the module provided here, you will need:
 
 * An AWS, Azure, or GCP Cloud account;
-* A Cloudera on cloud account (you can sign up for a [60-day free pilot](https://www.cloudera.com/campaign/try-cdp-public-cloud.html) );
+* A Cloudera on cloud account (you can sign up for a [60-day free pilot](https://www.cloudera.com/campaign/try-cdp-public-cloud.html));
 * A recent version of Terraform software (version 0.13 or higher).
 
 ## 🔧 Configure Local Prerequisites
@@ -30,7 +30,7 @@ To use the module provided here, you will need:
 ## 📖 Quickstart Guide
 
 > [!IMPORTANT]
-> Make sure your Cloudera and you Cloud provider credentials are properly configured  before proceeding
+> Make sure your Cloudera and cloud provider credentials are properly configured before proceeding.
 
 ### 1. Clone the Repository
 
@@ -62,12 +62,12 @@ vi terraform.tfvars
 
   ```yaml
   # ------- Global settings -------
-  env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources, e.g. cldr1
+  env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and Cloudera resources, e.g. cldr1
 
   # ------- Cloud Settings -------
   aws_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eu-west-1
 
-  # ------- CDP Environment Deployment -------
+  # ------- Cloudera environment deployment -------
   deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
   ```
 
@@ -78,12 +78,12 @@ vi terraform.tfvars
 
   ```yaml
   # ------- Global settings -------
-  env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources, e.g. cldr1
+  env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and Cloudera resources, e.g. cldr1
 
   # ------- Cloud Settings -------
   azure_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. eastus
 
-  # ------- CDP Environment Deployment -------
+  # ------- Cloudera environment deployment -------
   deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
   ```
 
@@ -94,14 +94,14 @@ vi terraform.tfvars
 
   ```yaml
   # ------- Global settings -------
-  env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and CDP resources, e.g. cldr1
+  env_prefix = "<ENTER_VALUE>" # Required name prefix for cloud and Cloudera resources, e.g. cldr1
 
   # ------- Cloud Settings -------
   gcp_project = "<ENTER_VALUE>" # Change this to specify the GCP Project ID
 
   gcp_region = "<ENTER_VALUE>" # Change this to specify Cloud Provider region, e.g. europe-west2
 
-  # ------- CDP Environment Deployment -------
+  # ------- Cloudera environment deployment -------
   deployment_template = "<ENTER_VALUE>"  # Specify the deployment pattern below. Options are public, semi-private or private
   ```
 
@@ -118,13 +118,13 @@ terraform apply
 
 ### 4. Monitor Progress
 
-You can follow the deployment process on the Cloudera on cloud Management Console from your browser at [cdp.cloudera.com](https://cdp.cloudera.com).
+You can follow the deployment process in the Cloudera web console at [cdp.cloudera.com](https://cdp.cloudera.com).
 
-After it completes, you can add [Data Hubs and Data Services](https://docs.cloudera.com/cdp-public-cloud/cloud/overview/topics/cdp-services.html) to your newly deployed environment from the Management Console UI or using the CLI.
+After deployment completes, you can add [Cloudera Data Hubs and Data Services](https://docs.cloudera.com/cdp-public-cloud/cloud/overview/topics/cdp-services.html) to your environment from the Cloudera web console or command-line interface.
 
 ### Clean Up Resources
 
-If you no longer need the infrastructure and Cloudera on cloud environment that's provisioned by Terraform, run the following command to remove the deployment infrastructure and terminate all resources.
+If you no longer need the infrastructure and Cloudera on cloud environment provisioned by Terraform, run the following command to remove the deployment infrastructure and terminate all resources.
 
 ```bash
 terraform destroy
@@ -136,7 +136,7 @@ terraform destroy
 
 ### SSH keys
 
-By default the Terraform quickstarts will create a new SSH keypair that will be associated with all nodes provisioned by Cloudera on cloud. The private key will be stored in the `<env_prefix>-ssh-key.pem` file of the Terraform cloud provider project directory.
+By default, the Terraform quickstarts create a new SSH key pair associated with all nodes provisioned by Cloudera on cloud. The private key is stored in the `<env_prefix>-ssh-key.pem` file in the Terraform cloud provider project directory.
 
 To use an existing SSH key, set the keypair name (for AWS) or public key text (for Azure and GCP) variable in the `terraform.tvars` file.
 
@@ -163,7 +163,7 @@ You can override this default behavior by explicitly setting the `datalake_scale
   * via environment variables (i.e. setting the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`) or;
   * via shared configuration/credential files (e.g. the `$HOME/.aws/credentials` file). The `AWS_PROFILE` environment variable can be set to specify a named AWS profile.
 
-* Note that the AWS region to use should always be specifed as a Terraform input variable (with the `aws_region` variable). This region variable is also used an input to the CDP deploy module used to identify the Cloud Provider region.
+* Specify the AWS region as a Terraform input variable using `aws_region`. This value is also passed to the Cloudera deployment module to identify the cloud provider region.
 
 ### Notes on Azure authentication
 
