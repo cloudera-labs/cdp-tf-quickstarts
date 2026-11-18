@@ -84,7 +84,7 @@ variable "environment_async_creation" {
 
   description = "Flag to specify whether Terraform waits for Cloudera environment creation or deletion"
 
-  default = false
+  default = true
 }
 
 variable "datalake_async_creation" {
